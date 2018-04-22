@@ -12,6 +12,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 {
     var statusItem: NSStatusItem!
+    var menu: NSMenu!
     
     enum MenuItem: Int
     {
@@ -23,6 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     func applicationDidFinishLaunching(_ aNotification: Notification)
     {
         self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        self.statusItem.image = NSImage.init(named: NSImage.Name(rawValue: "MenuIcon"))
 
         createMenu: do
         {
@@ -43,7 +45,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             menu.addItem(sep1)
             assert(menu.items.count - 1 == MenuItem.separator1.rawValue)
             
-            self.statusItem.menu = menu
+            self.menu = menu
+        }
+        
+        if let button = statusItem.button
+        {
+            button.action = #selector(statusBarClicked)
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        }
+    }
+    
+    @objc func statusBarClicked(sender: NSStatusBarButton)
+    {
+        let event = NSApp.currentEvent!
+        
+        if event.type == NSEvent.EventType.rightMouseUp
+        {
+            refreshImage()
+        }
+        else
+        {
+            //self.statusItem.menu = self.menu
+            self.statusItem.popUpMenu(self.menu)
+            //statusItem.menu = nil
         }
     }
     
@@ -63,7 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     
     @objc func refreshScreen(_ item: NSMenuItem)
     {
-        refreshImage()
+        //refreshImage()
     }
     
     func getImage() -> String

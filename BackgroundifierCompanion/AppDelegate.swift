@@ -15,10 +15,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     var menu: NSMenu!
     
     var data: (name: String, folder: String, cycling: Bool)!
+    
     var currentUrl: URL { return URL.init(fileURLWithPath: (data.folder as NSString).appendingPathComponent(data.name)) }
     var originalUrl: URL { return URL.init(fileURLWithPath: (hardcodedOriginPath.path as NSString).appendingPathComponent(data.name)) }
+    var bgifyURL: URL { return hardcodedBackgroundifierPath.appendingPathComponent("Contents").appendingPathComponent("MacOS").appendingPathComponent("Backgroundifier") }
     
     let conn = _CGSDefaultConnection()
+    var monitor: FileChangeMonitor?
     
     // TODO: set these in preferences
     let hardcodedBackgroundifierPath = URL.init(fileURLWithPath: "/Applications/Backgroundifier.app", isDirectory: true, relativeTo: nil)
@@ -130,6 +133,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         //}
         
         refreshMenu()
+        initMonitor()
     }
     
     func refreshMenu()
@@ -188,6 +192,43 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         self.menu.item(at: MenuItem.prefs.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.quit.rawValue)?.isEnabled = true
     }
+    
+/////////////////////////////////
+// MARK: - Directory Monitoring -
+/////////////////////////////////
+    
+    func initMonitor()
+    {
+        let monitoredUrl = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor")
+        let monitor = FileChangeMonitor.init(inDirectory: monitoredUrl)
+        monitor.delegate = self
+        monitor.startMonitoring()
+        self.monitor = monitor
+    }
+}
+
+extension AppDelegate: FileChangeMonitorDelegate
+{
+    func fileChangeMonitorDidObserveChange(_ directoryMonitor: FileChangeMonitor, additions: Set<URL>, deletions: Set<URL>)
+    {
+        for addition in additions
+        {
+            let success = backgroundify(addition)
+            
+            if success
+            {
+                print("Backgroundified \(addition)")
+            }
+            else
+            {
+                print("ERROR: failed to Backgroundify \(addition)")
+            }
+        }
+        for deletion in deletions
+        {
+            print("Deleted \(deletion)")
+        }
+    }
 }
 
 ///////////////////////
@@ -215,6 +256,16 @@ extension AppDelegate
         
         if !FileManager.default.fileExists(atPath: url.path) { return false }
         if url.hasDirectoryPath { return false }
+        
+        return true
+    }
+    
+    func bgifyExists() -> Bool
+    {
+        let url = bgifyURL
+        
+        if !FileManager.default.fileExists(atPath: url.path) { return false }
+        if !FileManager.default.isExecutableFile(atPath: url.path) { return false }
         
         return true
     }
@@ -301,6 +352,7 @@ extension AppDelegate
     
     @objc func clickedPreferences(_ item: NSMenuItem)
     {
+        let _ = backgroundify(originalUrl)
     }
     
     @objc func clickedQuit(_ item: NSMenuItem)
@@ -379,6 +431,39 @@ extension AppDelegate
         refreshImage()
         
         NSWorkspace.shared.recycle(urls, completionHandler: nil)
+    }
+    
+    func backgroundify(_ file: URL) -> Bool
+    {
+        if !bgifyExists()
+        {
+            print("ERROR: Backgroundifier executable not found at \(bgifyURL.path)")
+            return false
+        }
+
+        if file.hasDirectoryPath || !FileManager.default.fileExists(atPath: file.path)
+        {
+            print("ERROR: image file missing")
+            return false
+        }
+        
+        let out = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor/encode/\(file.lastPathComponent).jpg")
+        
+        if out.hasDirectoryPath
+        {
+            print("ERROR: invalid image output")
+            return false
+        }
+        
+        let task = Process()
+        task.launchPath = bgifyURL.path
+        task.arguments = ["-i", file.path, "-o", out.path, "-w", "2560", "-h", "1600"]
+        task.launch()
+        task.waitUntilExit()
+        
+        print("Exited: \(task.terminationStatus)")
+        
+        return task.terminationStatus == 0
     }
     
     func refreshImage()

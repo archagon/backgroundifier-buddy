@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4E412416208EB8AA00003041 /* DirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E412415208EB8AA00003041 /* DirectoryMonitor.swift */; };
 		4E412418208EBE3F00003041 /* FileChangeMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E412417208EBE3F00003041 /* FileChangeMonitor.swift */; };
+		4E41241A208ED96600003041 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E412419208ED96600003041 /* Preferences.swift */; };
+		4E41241C208ED98300003041 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E41241B208ED98300003041 /* Preferences.xib */; };
 		4EF060D8208BF5490024924D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF060D7208BF5490024924D /* AppDelegate.swift */; };
 		4EF060DA208BF54B0024924D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EF060D9208BF54B0024924D /* Assets.xcassets */; };
 		4EF060DD208BF54B0024924D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EF060DB208BF54B0024924D /* MainMenu.xib */; };
@@ -18,6 +20,8 @@
 		4E412414208D381900003041 /* ApplePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplePrivate.h; sourceTree = "<group>"; };
 		4E412415208EB8AA00003041 /* DirectoryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryMonitor.swift; sourceTree = "<group>"; };
 		4E412417208EBE3F00003041 /* FileChangeMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileChangeMonitor.swift; sourceTree = "<group>"; };
+		4E412419208ED96600003041 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		4E41241B208ED98300003041 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		4EF060D4208BF5490024924D /* BackgroundifierCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackgroundifierCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF060D7208BF5490024924D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EF060D9208BF54B0024924D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				4EF060D7208BF5490024924D /* AppDelegate.swift */,
+				4E412419208ED96600003041 /* Preferences.swift */,
 				4E412417208EBE3F00003041 /* FileChangeMonitor.swift */,
 				4E412415208EB8AA00003041 /* DirectoryMonitor.swift */,
 				4EF060E6208BFCF20024924D /* RetrieveBackground.h */,
@@ -67,6 +72,7 @@
 				4EF060E5208BFCF10024924D /* BackgroundifierCompanion-Bridging-Header.h */,
 				4E412414208D381900003041 /* ApplePrivate.h */,
 				4EF060D9208BF54B0024924D /* Assets.xcassets */,
+				4E41241B208ED98300003041 /* Preferences.xib */,
 				4EF060DB208BF54B0024924D /* MainMenu.xib */,
 				4EF060DE208BF54B0024924D /* Info.plist */,
 				4EF060DF208BF54B0024924D /* BackgroundifierCompanion.entitlements */,
@@ -139,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EF060DA208BF54B0024924D /* Assets.xcassets in Resources */,
+				4E41241C208ED98300003041 /* Preferences.xib in Resources */,
 				4EF060DD208BF54B0024924D /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +159,7 @@
 			files = (
 				4E412416208EB8AA00003041 /* DirectoryMonitor.swift in Sources */,
 				4EF060D8208BF5490024924D /* AppDelegate.swift in Sources */,
+				4E41241A208ED96600003041 /* Preferences.swift in Sources */,
 				4E412418208EBE3F00003041 /* FileChangeMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

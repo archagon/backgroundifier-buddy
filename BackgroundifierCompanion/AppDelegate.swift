@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 {
     var statusItem: NSStatusItem!
     var menu: NSMenu!
+    var preferences: Preferences?
     
     var data: (name: String, folder: String, cycling: Bool)!
     
@@ -109,7 +110,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             menu.addItem(sep3)
             assert(menu.items.count - 1 == MenuItem.separator3.rawValue)
             
-            let prefsItem = NSMenuItem.init(title: "Preferences", action: #selector(clickedPreferences), keyEquivalent: "")
+            let prefsItem = NSMenuItem.init(title: "Preferences…", action: #selector(clickedPreferences), keyEquivalent: "")
             menu.addItem(prefsItem)
             assert(menu.items.count - 1 == MenuItem.prefs.rawValue)
             
@@ -131,6 +132,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         //{ notification in
         //    self.refreshMenu()
         //}
+        
+        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: nil, queue: nil)
+        { n in
+            if n.object as? Preferences == self.preferences
+            {
+                self.preferences = nil
+            }
+        }
         
         refreshMenu()
         initMonitor()
@@ -352,7 +361,27 @@ extension AppDelegate
     
     @objc func clickedPreferences(_ item: NSMenuItem)
     {
-        let _ = backgroundify(originalUrl)
+        if let prefs = self.preferences
+        {
+            prefs.window?.makeKeyAndOrderFront(self)
+            prefs.window?.orderFrontRegardless()
+
+            return
+        }
+        
+        let prefs = Preferences.init(windowNibName: NSNib.Name.init("Preferences"))
+        
+        if
+            let window = prefs.window,
+            let frame = self.statusItem.button?.window?.frame
+        {
+            window.setFrameOrigin(NSMakePoint(frame.origin.x + frame.size.width / 2.0 - window.frame.size.width / 2.0, frame.origin.y - frame.size.height - window.frame.height))
+        }
+        
+        prefs.window?.makeKeyAndOrderFront(self)
+        prefs.window?.orderFrontRegardless()
+        
+        self.preferences = prefs
     }
     
     @objc func clickedQuit(_ item: NSMenuItem)
@@ -447,7 +476,7 @@ extension AppDelegate
             return false
         }
         
-        let out = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor/encode/\(file.lastPathComponent).jpg")
+        let out = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor/encode/\((file.lastPathComponent as NSString).deletingPathExtension).jpg")
         
         if out.hasDirectoryPath
         {
@@ -455,6 +484,7 @@ extension AppDelegate
             return false
         }
         
+        // TODO: figure out how to expand sandbox to include output folder
         let task = Process()
         task.launchPath = bgifyURL.path
         task.arguments = ["-i", file.path, "-o", out.path, "-w", "2560", "-h", "1600"]

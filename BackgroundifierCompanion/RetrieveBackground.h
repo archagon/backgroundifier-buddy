@@ -10,4 +10,5 @@
 
 @interface RetrieveBackground : NSObject
 +(NSString*) backgroundForDesktop:(NSUInteger)desktop screen:(NSUInteger)screen;
+//+(void) test;
 @end

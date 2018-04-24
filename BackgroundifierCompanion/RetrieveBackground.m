@@ -8,6 +8,7 @@
 
 #import <sqlite3.h>
 #import "RetrieveBackground.h"
+#import "ApplePrivate.h"
 
 @implementation RetrieveBackground
 
@@ -15,6 +16,17 @@
 //https://stackoverflow.com/questions/6768684/osx-lion-applescript-how-to-get-current-space-from-mission-control
 //https://github.com/w0lfschild/macOS_headers/blob/master/macOS/CoreServices/Dock/1849.14/Dock.Spaces.h
 //http://ianyh.com/blog/identifying-spaces-in-mac-os-x/
+//http://www.1klb.com/posts/2013/11/02/desktop-background-on-os-x-109-mavericks/
+//https://github.com/gechr/WhichSpace
+//  https://gist.github.com/sdsykes/5c2c0c2a41396aead3b7
+//  https://gist.github.com/puffnfresh/4054059
+//  https://github.com/avaidyam/Parrot/wiki/Private-Goodies
+//https://github.com/dshnkao/SpaceId
+//https://github.com/binaryage/totalspaces2-display-manager/blob/bdf4cd2d20e68753c06b0b87d0a288e884a443fe/DisplaySpacesManager/private.h
+//https://github.com/binaryage/totalspaces2-display-manager/blob/master/DisplaySpacesManager/BATotalSpaces.m
+//https://github.com/Naville/WallpaperKit/tree/e93f59e14bee4b7064aac47fb51398b684db729d/WallpaperKit
+//
+//Github search "_CGSDefaultConnection wallpaper"
 //
 //NSWorkspaceActiveSpaceDidChangeNotification
 //defaults read com.apple.spaces
@@ -25,6 +37,9 @@
 //JOIN pictures ON preferences.picture_id=pictures.ROWID
 //JOIN displays ON pictures.display_id=displays.ROWID
 //JOIN spaces ON pictures.space_id=spaces.ROWID ;
+
+//LEFT JOIN spaces ON pictures.space_id=spaces.ROWID
+//LEFT JOIN displays ON pictures.display_id=displays.ROWID
 
 +(NSString*) backgroundForDesktop:(NSUInteger)desktop screen:(NSUInteger)screen
 {
@@ -65,7 +80,8 @@
     [[NSUserDefaults standardUserDefaults] removeSuiteNamed:@"com.apple.spaces"];
     [[NSUserDefaults standardUserDefaults] addSuiteNamed:@"com.apple.spaces"];
     
-    NSArray* spaceProperties = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"SpacesDisplayConfiguration"][@"Space Properties"];
+    NSDictionary* spaceConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"SpacesDisplayConfiguration"];
+    NSArray* spaceProperties = spaceConfig[@"Space Properties"];
     
     NSMutableArray* spaceIdentifiers = [NSMutableArray array];
     NSMutableDictionary* spaceIdentifiersByWindowNumber = [NSMutableDictionary dictionary];
@@ -112,5 +128,29 @@
     
     return activeSpaceIdentifier;
 }
+
+//+(void) test
+//{
+//    int conn = _CGSDefaultConnection();
+//    
+//    NSDictionary* displayInfo = [(NSArray*)CGSCopyManagedDisplaySpaces(conn) firstObject];
+//    
+//    // AB: also try "ManagedSpaceID"
+//    NSString* displayId = displayInfo[@"Display Identifier"];
+//    NSString* currentSpaceId = displayInfo[@"Current Space"][@"uuid"];
+//    //let spacesIds = (displayInfo["Spaces"] as! NSArray).map { ($0 as! NSDictionary)["uuid"] as! String }
+//    //
+//    //let currentSpaceIndex = spacesIds.index(of: currentSpaceId)!
+//
+//    //print("Display ID: \(displayId)")
+//    //print("Current Space ID: \(currentSpaceId)")
+//    //print("Current Space index: \(currentSpaceIndex)")
+//
+//    CGDirectDisplayID display = CGSGetDisplayForUUID((__bridge CFStringRef)displayId);
+//    CFDictionaryRef picture = DesktopPictureCopyDisplayForSpace(display, 0, (__bridge CFStringRef)currentSpaceId);
+//    
+//    //print(picture)
+//    //print()
+//}
 
 @end

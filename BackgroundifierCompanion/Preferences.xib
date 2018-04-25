@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -12,292 +13,441 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window identifier="Preferences" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="Preferences" customModule="BackgroundifierCompanion" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="472" height="486"/>
+            <rect key="contentRect" x="196" y="240" width="474" height="528"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
-            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="472" height="500"/>
+            <view key="contentView" wantsLayer="YES" misplaced="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="519" height="591"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3f-Ms-JTR">
-                        <rect key="frame" x="20" y="20" width="432" height="460"/>
+                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3f-Ms-JTR">
+                        <rect key="frame" x="20" y="20" width="479" height="551"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UpV-lN-Rq1">
-                                <rect key="frame" x="31" y="446" width="371" height="14"/>
-                                <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UJO-96-Ff7">
-                                        <rect key="frame" x="-2" y="-2" width="375" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Enable automatic Backgroundifier conversion" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Gsi-Mx-vqu">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </button>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uqQ-GT-HmB">
-                                <rect key="frame" x="45" y="397" width="359" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="355" id="qU2-nY-uXS"/>
-                                </constraints>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="eYU-DW-oN2">
-                                    <font key="font" metaFont="system" size="11"/>
-                                    <string key="title">Automatically use Backgroundifier to convert images in the Source directory to the Output directory. (Does not currently track edits, only additions.)</string>
-                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="edi-TL-r0H">
-                                <rect key="frame" x="212" y="382" width="8" height="8"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="8" id="voG-RT-HgB"/>
-                                </constraints>
-                            </customView>
-                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k7q-4p-z6E">
-                                <rect key="frame" x="31" y="354" width="371" height="21"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tZE-Oa-AFm">
-                                        <rect key="frame" x="-2" y="2" width="149" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Source image directory:" id="wyS-oq-I7T">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <pathControl verticalHuggingPriority="750" tag="1" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rg9-Ys-JPh">
-                                        <rect key="frame" x="150" y="-3" width="156" height="26"/>
-                                        <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="pkT-fa-Wmz">
-                                            <font key="font" metaFont="system"/>
-                                        </pathCell>
-                                        <connections>
-                                            <action selector="pathAction:" target="-2" id="Bd5-3I-L9p"/>
-                                            <outlet property="delegate" destination="-2" id="zqB-VP-5fv"/>
-                                        </connections>
-                                    </pathControl>
-                                    <button verticalHuggingPriority="750" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="EQc-xF-KlR">
-                                        <rect key="frame" x="305" y="-7" width="72" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="job-fa-btf">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="clearAction:" target="-2" id="V8R-Aw-Ywu"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ZW7-MI-F7L">
-                                <rect key="frame" x="45" y="305" width="359" height="42"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="5pR-TB-iO6">
-                                    <font key="font" metaFont="system" size="11"/>
-                                    <string key="title">The directory containing all your original images. Needs to be a subdirectory inside your ~/Pictures directory for automatic conversion to work.</string>
-                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="V7m-av-poc">
-                                <rect key="frame" x="212" y="290" width="8" height="8"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="8" id="hsH-X6-MvW"/>
-                                </constraints>
-                            </customView>
-                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ftb-Rg-PSi">
-                                <rect key="frame" x="31" y="262" width="371" height="21"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iS4-1Z-qxQ">
-                                        <rect key="frame" x="-2" y="2" width="149" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Output image directory:" id="JdE-au-gMt">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <pathControl verticalHuggingPriority="750" tag="2" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eaw-K8-RRh">
-                                        <rect key="frame" x="150" y="-3" width="156" height="26"/>
-                                        <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="zQ4-at-MMM">
-                                            <font key="font" metaFont="system"/>
-                                        </pathCell>
-                                        <connections>
-                                            <action selector="pathAction:" target="-2" id="IVQ-wi-SAy"/>
-                                            <outlet property="delegate" destination="-2" id="IGt-Ya-OIb"/>
-                                        </connections>
-                                    </pathControl>
-                                    <button verticalHuggingPriority="750" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="JTn-sY-0K6">
-                                        <rect key="frame" x="305" y="-7" width="72" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e4h-xV-Rzv">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="clearAction:" target="-2" id="nP2-U9-urF"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GQh-kO-5D7">
-                                <rect key="frame" x="45" y="199" width="359" height="56"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="eZj-Xr-S6e">
-                                    <font key="font" metaFont="system" size="11"/>
-                                    <string key="title">The directory containing your Backgroundifier-processed images, presumably selected as the source directory for your wallpapers. Needs to be a subfolder inside your ~/Pictures directory for automatic conversion to work.</string>
-                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="b9c-nk-MSd">
-                                <rect key="frame" x="212" y="184" width="8" height="8"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="8" id="Ta1-3F-jnf"/>
-                                </constraints>
-                            </customView>
-                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kgA-sx-46Z">
-                                <rect key="frame" x="29" y="156" width="373" height="21"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B9a-ic-YcM">
-                                        <rect key="frame" x="-2" y="2" width="151" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Image archive directory:" id="hsF-Gx-uSz">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <pathControl verticalHuggingPriority="750" tag="3" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5cF-bk-mVc">
-                                        <rect key="frame" x="152" y="-3" width="156" height="26"/>
-                                        <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="uB6-Db-sxF">
-                                            <font key="font" metaFont="system"/>
-                                        </pathCell>
-                                        <connections>
-                                            <action selector="pathAction:" target="-2" id="rDM-Ji-gYN"/>
-                                            <outlet property="delegate" destination="-2" id="pA0-NZ-Fw7"/>
-                                        </connections>
-                                    </pathControl>
-                                    <button verticalHuggingPriority="750" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="ueY-b6-cam">
-                                        <rect key="frame" x="307" y="-7" width="72" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d65-98-gT5">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="clearAction:" target="-2" id="NzI-Mb-oEa"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qJf-B8-w41">
-                                <rect key="frame" x="45" y="121" width="359" height="28"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="The directory into which all your archived images will be moved to. Optional." id="495-kV-PJc">
-                                    <font key="font" metaFont="system" size="11"/>
-                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dks-ZD-aJb">
-                                <rect key="frame" x="212" y="106" width="8" height="8"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="8" id="niN-2h-6wj"/>
-                                    <constraint firstAttribute="height" constant="8" id="rJP-U5-DmH"/>
-                                </constraints>
-                            </customView>
-                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G4u-1v-UTp">
-                                <rect key="frame" x="20" y="78" width="382" height="21"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7YT-aa-VRs">
-                                        <rect key="frame" x="-2" y="2" width="160" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Backgroundifier.app path:" id="lWR-4t-3C7">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <pathControl verticalHuggingPriority="750" tag="4" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LH9-9h-enN">
-                                        <rect key="frame" x="161" y="-3" width="156" height="26"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="osK-AR-bSx"/>
-                                        </constraints>
-                                        <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="vic-Rr-Uqt">
-                                            <font key="font" metaFont="system"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="QvC-M9-y7g" id="uzb-ZO-PUE"/>
-                                            </connections>
-                                        </pathCell>
-                                        <connections>
-                                            <action selector="pathAction:" target="-2" id="ddS-qx-RRY"/>
-                                            <outlet property="delegate" destination="-2" id="GWP-vW-rzK"/>
-                                        </connections>
-                                    </pathControl>
-                                    <button verticalHuggingPriority="750" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="Jwb-ln-f9J">
-                                        <rect key="frame" x="316" y="-7" width="72" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uTG-td-TM5">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="clearAction:" target="-2" id="J0M-9d-GwE"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="M4z-mj-sDT">
-                                <rect key="frame" x="212" y="63" width="8" height="8"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="8" id="HxL-aL-TZ7"/>
-                                    <constraint firstAttribute="width" constant="8" id="v3G-0S-j1D"/>
-                                </constraints>
-                            </customView>
+                            <box title="Automatic Conversion" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="msA-6D-9ku">
+                                <rect key="frame" x="-3" y="485" width="485" height="68"/>
+                                <view key="contentView" id="13D-hx-7wx">
+                                    <rect key="frame" x="2" y="2" width="481" height="64"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6D-6f-zUj">
+                                            <rect key="frame" x="8" y="8" width="465" height="48"/>
+                                            <subviews>
+                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UJO-96-Ff7">
+                                                    <rect key="frame" x="-2" y="32" width="296" height="18"/>
+                                                    <buttonCell key="cell" type="check" title="Enable automatic Backgroundifier conversion" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Gsi-Mx-vqu">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                </button>
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uqQ-GT-HmB">
+                                                    <rect key="frame" x="-2" y="0.0" width="441" height="28"/>
+                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="eYU-DW-oN2">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <string key="title">Automatically use Backgroundifier to convert images in the Source directory to the Output directory. (Does not currently track edits, only additions.)</string>
+                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="C6D-6f-zUj" secondAttribute="trailing" constant="8" id="7xY-8T-gsW"/>
+                                        <constraint firstAttribute="bottom" secondItem="C6D-6f-zUj" secondAttribute="bottom" constant="8" id="Aik-qG-GWv"/>
+                                        <constraint firstItem="C6D-6f-zUj" firstAttribute="top" secondItem="13D-hx-7wx" secondAttribute="top" constant="8" id="Qrh-Td-AIn"/>
+                                        <constraint firstItem="C6D-6f-zUj" firstAttribute="leading" secondItem="13D-hx-7wx" secondAttribute="leading" constant="8" id="b3o-2I-fSV"/>
+                                    </constraints>
+                                </view>
+                            </box>
+                            <box title="Source Image Directory" translatesAutoresizingMaskIntoConstraints="NO" id="Hwq-ek-v1l">
+                                <rect key="frame" x="-3" y="384" width="485" height="89"/>
+                                <view key="contentView" id="AdL-SG-WE4">
+                                    <rect key="frame" x="2" y="2" width="481" height="72"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yzG-k3-M5M">
+                                            <rect key="frame" x="8" y="8" width="465" height="56"/>
+                                            <subviews>
+                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqx-B8-uJz">
+                                                    <rect key="frame" x="0.0" y="34" width="465" height="22"/>
+                                                    <subviews>
+                                                        <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="1" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMm-hK-n0R">
+                                                            <rect key="frame" x="-3" y="-2" width="342" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="B9R-PN-HUa">
+                                                                <font key="font" metaFont="system"/>
+                                                            </pathCell>
+                                                            <connections>
+                                                                <action selector="pathAction:" target="-2" id="ZgC-BF-KXO"/>
+                                                                <outlet property="delegate" destination="-2" id="e0M-1u-RQh"/>
+                                                            </connections>
+                                                        </pathControl>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSb-uC-OjC">
+                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <subviews>
+                                                                <button verticalHuggingPriority="750" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="zp9-rS-Zbk">
+                                                                    <rect key="frame" x="-6" y="-7" width="72" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jYX-Y1-KoR">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="clearAction:" target="-2" id="Gge-XT-7oP"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button verticalHuggingPriority="750" tag="21" translatesAutoresizingMaskIntoConstraints="NO" id="suS-zv-xfT">
+                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="crv-cM-9J8">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="XSb-uC-OjC" firstAttribute="centerY" secondItem="JMm-hK-n0R" secondAttribute="centerY" constant="2" id="oGM-uQ-qP4"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nvW-tD-kxl">
+                                                    <rect key="frame" x="-2" y="0.0" width="469" height="28"/>
+                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="QI0-zc-5bA">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <string key="title">The directory containing all your original images. Needs to be a subdirectory inside your ~/Pictures directory for automatic conversion to work.</string>
+                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="yzG-k3-M5M" firstAttribute="leading" secondItem="AdL-SG-WE4" secondAttribute="leading" constant="8" id="67F-Rd-yfl"/>
+                                        <constraint firstAttribute="trailing" secondItem="yzG-k3-M5M" secondAttribute="trailing" constant="8" id="B4k-gh-1Xj"/>
+                                        <constraint firstItem="yzG-k3-M5M" firstAttribute="top" secondItem="AdL-SG-WE4" secondAttribute="top" constant="8" id="Jpy-Gb-nrN"/>
+                                        <constraint firstAttribute="bottom" secondItem="yzG-k3-M5M" secondAttribute="bottom" constant="8" id="yvA-El-yFZ"/>
+                                    </constraints>
+                                </view>
+                            </box>
+                            <box title="Output Image Directory" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-l4-kUJ">
+                                <rect key="frame" x="-3" y="266" width="485" height="106"/>
+                                <view key="contentView" id="mVs-mU-iEF">
+                                    <rect key="frame" x="2" y="2" width="481" height="89"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byd-Nf-ZAB">
+                                            <rect key="frame" x="8" y="8" width="465" height="73"/>
+                                            <subviews>
+                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KgN-Pt-dri">
+                                                    <rect key="frame" x="0.0" y="50" width="465" height="23"/>
+                                                    <subviews>
+                                                        <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="2" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LCj-PJ-HhT">
+                                                            <rect key="frame" x="-3" y="-1" width="342" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="Vwq-Nf-kVf">
+                                                                <font key="font" metaFont="system"/>
+                                                            </pathCell>
+                                                            <connections>
+                                                                <action selector="pathAction:" target="-2" id="XGW-5W-S0g"/>
+                                                                <outlet property="delegate" destination="-2" id="LBT-A0-B9b"/>
+                                                            </connections>
+                                                        </pathControl>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-QH-Nzk">
+                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <subviews>
+                                                                <button verticalHuggingPriority="750" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="cla-Q3-wK5">
+                                                                    <rect key="frame" x="-6" y="-7" width="72" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CoP-RL-8dC">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="clearAction:" target="-2" id="xci-zL-0hH"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button verticalHuggingPriority="750" tag="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nj5-Q9-oZb">
+                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yQV-fZ-x7d">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="9oa-QH-Nzk" firstAttribute="centerY" secondItem="LCj-PJ-HhT" secondAttribute="centerY" constant="2" id="YQG-B0-HGd"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-cn-gkI">
+                                                    <rect key="frame" x="-2" y="0.0" width="464" height="42"/>
+                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="Ne3-UT-6df">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <string key="title">The directory containing your Backgroundifier-processed images, presumably selected as the source directory for your wallpapers. Needs to be a subfolder inside your ~/Pictures directory for automatic conversion to work.</string>
+                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Byd-Nf-ZAB" secondAttribute="trailing" constant="8" id="Dl8-cH-GFp"/>
+                                        <constraint firstItem="Byd-Nf-ZAB" firstAttribute="leading" secondItem="mVs-mU-iEF" secondAttribute="leading" constant="8" id="RYL-i9-oHL"/>
+                                        <constraint firstAttribute="bottom" secondItem="Byd-Nf-ZAB" secondAttribute="bottom" constant="8" id="Wn8-6i-88F"/>
+                                        <constraint firstItem="Byd-Nf-ZAB" firstAttribute="top" secondItem="mVs-mU-iEF" secondAttribute="top" constant="8" id="hIV-ZP-Xbf"/>
+                                    </constraints>
+                                </view>
+                            </box>
+                            <box title="Image Archive Directory" translatesAutoresizingMaskIntoConstraints="NO" id="Ow3-79-0kp">
+                                <rect key="frame" x="-3" y="179" width="485" height="75"/>
+                                <view key="contentView" id="vLZ-JG-Ga7">
+                                    <rect key="frame" x="2" y="2" width="481" height="58"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ndc-3H-ZU6">
+                                            <rect key="frame" x="8" y="8" width="465" height="42"/>
+                                            <subviews>
+                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xra-BO-gkq">
+                                                    <rect key="frame" x="0.0" y="20" width="465" height="22"/>
+                                                    <subviews>
+                                                        <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="3" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9i-cy-Run">
+                                                            <rect key="frame" x="-3" y="-2" width="342" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="lvE-0w-cbc">
+                                                                <font key="font" metaFont="system"/>
+                                                            </pathCell>
+                                                            <connections>
+                                                                <action selector="pathAction:" target="-2" id="21T-Wk-EaB"/>
+                                                                <outlet property="delegate" destination="-2" id="psv-BC-Fpz"/>
+                                                            </connections>
+                                                        </pathControl>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-BH-c50">
+                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <subviews>
+                                                                <button verticalHuggingPriority="750" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="NB1-Fc-eMM">
+                                                                    <rect key="frame" x="-6" y="-7" width="72" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iuc-aG-9d1">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="clearAction:" target="-2" id="Dvf-NG-VPP"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button verticalHuggingPriority="750" tag="23" translatesAutoresizingMaskIntoConstraints="NO" id="cDs-3m-FMH">
+                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7wr-qG-IOA">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="h8t-BH-c50" firstAttribute="centerY" secondItem="c9i-cy-Run" secondAttribute="centerY" constant="2" id="MSo-A4-dj5"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="85z-VV-Lnb">
+                                                    <rect key="frame" x="-2" y="0.0" width="404" height="14"/>
+                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="The directory into which all your archived images will be moved to. Optional." id="ISV-fg-jTI">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ndc-3H-ZU6" firstAttribute="leading" secondItem="vLZ-JG-Ga7" secondAttribute="leading" constant="8" id="52R-KE-YSE"/>
+                                        <constraint firstAttribute="bottom" secondItem="Ndc-3H-ZU6" secondAttribute="bottom" constant="8" id="MXW-fR-Pya"/>
+                                        <constraint firstItem="Ndc-3H-ZU6" firstAttribute="top" secondItem="vLZ-JG-Ga7" secondAttribute="top" constant="8" id="S8c-TL-WNN"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ndc-3H-ZU6" secondAttribute="trailing" constant="8" id="sVG-N5-jJ4"/>
+                                    </constraints>
+                                </view>
+                            </box>
+                            <box title="Backgroundifier Path" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-xm-eom">
+                                <rect key="frame" x="-3" y="77" width="485" height="90"/>
+                                <view key="contentView" id="r6J-fI-B0S">
+                                    <rect key="frame" x="2" y="2" width="481" height="73"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mbG-pk-exQ">
+                                            <rect key="frame" x="8" y="8" width="465" height="57"/>
+                                            <subviews>
+                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0tx-Hy-1GO">
+                                                    <rect key="frame" x="0.0" y="34" width="465" height="23"/>
+                                                    <subviews>
+                                                        <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="4" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3h-TV-il7">
+                                                            <rect key="frame" x="-3" y="-1" width="342" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="Snk-64-JaP">
+                                                                <font key="font" metaFont="system"/>
+                                                            </pathCell>
+                                                            <connections>
+                                                                <action selector="pathAction:" target="-2" id="2aj-hw-6vc"/>
+                                                                <outlet property="delegate" destination="-2" id="W9y-5k-V3v"/>
+                                                            </connections>
+                                                        </pathControl>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LOo-vb-owz">
+                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <subviews>
+                                                                <button verticalHuggingPriority="750" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ked-RS-3Gu">
+                                                                    <rect key="frame" x="-6" y="-7" width="72" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4iC-BB-srF">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="clearAction:" target="-2" id="uAX-ka-JWD"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button verticalHuggingPriority="750" tag="24" translatesAutoresizingMaskIntoConstraints="NO" id="dMa-rS-ulk">
+                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QMI-TP-cg9">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="LOo-vb-owz" firstAttribute="centerY" secondItem="U3h-TV-il7" secondAttribute="centerY" constant="2" id="nHz-er-WpW"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="A0R-yZ-pYb">
+                                                    <rect key="frame" x="-2" y="0.0" width="469" height="28"/>
+                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="JUM-cA-eBh">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <string key="title">The location of either Backgroundifier.app or the Backgroundifier binary. Only required if automatic image conversion is selected.</string>
+                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="mbG-pk-exQ" firstAttribute="leading" secondItem="r6J-fI-B0S" secondAttribute="leading" constant="8" id="1YF-k9-kuu"/>
+                                        <constraint firstAttribute="bottom" secondItem="mbG-pk-exQ" secondAttribute="bottom" constant="8" id="1g6-Cz-cVp"/>
+                                        <constraint firstItem="mbG-pk-exQ" firstAttribute="top" secondItem="r6J-fI-B0S" secondAttribute="top" constant="8" id="VI0-QK-Hu8"/>
+                                        <constraint firstAttribute="trailing" secondItem="mbG-pk-exQ" secondAttribute="trailing" constant="8" id="bof-wd-PZd"/>
+                                    </constraints>
+                                </view>
+                            </box>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="OBC-4n-6Ah">
-                                <rect key="frame" x="168" y="53" width="96" height="5"/>
+                                <rect key="frame" x="24" y="62" width="432" height="5"/>
                             </box>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kzt-cb-9Tf">
-                                <rect key="frame" x="0.0" y="0.0" width="433" height="48"/>
+                                <rect key="frame" x="6" y="0.0" width="467" height="48"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="odD-am-7Yt">
-                                    <font key="font" metaFont="system" size="12"/>
+                                    <font key="font" metaFont="cellTitle"/>
                                     <string key="title">BackgroundifierCompanion 0.5 is made by Alexei Baboulevitch, for use in concert with Backgroundifier-produced images. You can read more about it at http://archagon.net/my-blog-post. Enjoy! 😊</string>
                                     <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -305,29 +455,11 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="qJf-B8-w41" firstAttribute="width" secondItem="uqQ-GT-HmB" secondAttribute="width" id="3JU-UX-Wni"/>
-                            <constraint firstItem="b9c-nk-MSd" firstAttribute="height" secondItem="edi-TL-r0H" secondAttribute="height" id="6yF-zD-c87"/>
-                            <constraint firstItem="Jwb-ln-f9J" firstAttribute="width" secondItem="ueY-b6-cam" secondAttribute="width" id="9cb-4q-4oJ"/>
-                            <constraint firstItem="Jwb-ln-f9J" firstAttribute="width" secondItem="JTn-sY-0K6" secondAttribute="width" id="Brz-Nv-Ihp"/>
-                            <constraint firstItem="G4u-1v-UTp" firstAttribute="height" secondItem="kgA-sx-46Z" secondAttribute="height" id="F7j-jL-Sfe"/>
-                            <constraint firstItem="qJf-B8-w41" firstAttribute="trailing" secondItem="uqQ-GT-HmB" secondAttribute="trailing" id="FHT-WF-Pnu"/>
-                            <constraint firstItem="7YT-aa-VRs" firstAttribute="trailing" secondItem="tZE-Oa-AFm" secondAttribute="trailing" id="Hlu-MP-wsD"/>
-                            <constraint firstItem="Dks-ZD-aJb" firstAttribute="height" secondItem="V7m-av-poc" secondAttribute="height" id="JAI-fR-nKD"/>
-                            <constraint firstItem="G4u-1v-UTp" firstAttribute="height" secondItem="k7q-4p-z6E" secondAttribute="height" id="KSJ-c7-8cA"/>
-                            <constraint firstItem="ZW7-MI-F7L" firstAttribute="width" secondItem="uqQ-GT-HmB" secondAttribute="width" id="LEv-dO-Dfo"/>
-                            <constraint firstItem="GQh-kO-5D7" firstAttribute="width" secondItem="uqQ-GT-HmB" secondAttribute="width" id="Qne-Ux-OZQ"/>
-                            <constraint firstItem="Jwb-ln-f9J" firstAttribute="width" secondItem="EQc-xF-KlR" secondAttribute="width" id="UiG-Uy-njd"/>
-                            <constraint firstItem="GQh-kO-5D7" firstAttribute="trailing" secondItem="uqQ-GT-HmB" secondAttribute="trailing" id="ZOq-mR-Dei"/>
-                            <constraint firstItem="UJO-96-Ff7" firstAttribute="leading" secondItem="tZE-Oa-AFm" secondAttribute="leading" id="guN-BE-0gE"/>
-                            <constraint firstItem="LH9-9h-enN" firstAttribute="width" secondItem="rg9-Ys-JPh" secondAttribute="width" id="lU7-uc-ZGV"/>
-                            <constraint firstItem="7YT-aa-VRs" firstAttribute="trailing" secondItem="B9a-ic-YcM" secondAttribute="trailing" id="mTX-AU-te5"/>
-                            <constraint firstItem="b9c-nk-MSd" firstAttribute="height" secondItem="V7m-av-poc" secondAttribute="height" id="nuN-b7-n0S"/>
-                            <constraint firstItem="7YT-aa-VRs" firstAttribute="trailing" secondItem="iS4-1Z-qxQ" secondAttribute="trailing" id="oLE-p9-sZu"/>
-                            <constraint firstItem="ZW7-MI-F7L" firstAttribute="trailing" secondItem="uqQ-GT-HmB" secondAttribute="trailing" id="ouA-We-cf4"/>
-                            <constraint firstItem="LH9-9h-enN" firstAttribute="width" secondItem="eaw-K8-RRh" secondAttribute="width" id="qqu-xt-c5C"/>
-                            <constraint firstItem="uqQ-GT-HmB" firstAttribute="trailing" secondItem="EQc-xF-KlR" secondAttribute="trailing" id="sxt-RW-WlE"/>
-                            <constraint firstItem="LH9-9h-enN" firstAttribute="width" secondItem="5cF-bk-mVc" secondAttribute="width" id="tql-KT-2ky"/>
-                            <constraint firstItem="G4u-1v-UTp" firstAttribute="height" secondItem="ftb-Rg-PSi" secondAttribute="height" id="yJb-Pb-DPX"/>
+                            <constraint firstItem="pS3-l4-kUJ" firstAttribute="width" secondItem="m3f-Ms-JTR" secondAttribute="width" id="7rT-ik-c7v"/>
+                            <constraint firstItem="Hwq-ek-v1l" firstAttribute="width" secondItem="m3f-Ms-JTR" secondAttribute="width" id="9xD-kc-AG9"/>
+                            <constraint firstItem="Ow3-79-0kp" firstAttribute="width" secondItem="m3f-Ms-JTR" secondAttribute="width" id="Xaa-c6-nEl"/>
+                            <constraint firstItem="msA-6D-9ku" firstAttribute="width" secondItem="m3f-Ms-JTR" secondAttribute="width" id="t1S-DS-GsF"/>
+                            <constraint firstItem="TOw-xm-eom" firstAttribute="width" secondItem="m3f-Ms-JTR" secondAttribute="width" id="z3O-3d-i7S"/>
                         </constraints>
                         <visibilityPriorities>
                             <integer value="1000"/>
@@ -337,26 +469,8 @@
                             <integer value="1000"/>
                             <integer value="1000"/>
                             <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
                         </visibilityPriorities>
                         <customSpacing>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
                             <real value="3.4028234663852886e+38"/>
                             <real value="3.4028234663852886e+38"/>
                             <real value="3.4028234663852886e+38"/>
@@ -374,7 +488,7 @@
                     <constraint firstItem="m3f-Ms-JTR" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="ZBA-Qv-TKy"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="83" y="10"/>
+            <point key="canvasLocation" x="-125" y="-234"/>
         </window>
     </objects>
 </document>

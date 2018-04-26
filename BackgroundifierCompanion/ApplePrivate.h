@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@interface NSStatusBarWindow
+@end
+
 int _CGSDefaultConnection(void);
 id CGSCopyManagedDisplaySpaces(int conn);
 

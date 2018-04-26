@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     
     let conn = _CGSDefaultConnection()
     var monitor: FileChangeMonitor?
+    var desktopShowReady: Bool = true
     
     // TODO: set these in preferences
     let hardcodedBackgroundifierPath = URL.init(fileURLWithPath: "/Applications/Backgroundifier.app", isDirectory: true, relativeTo: nil)
@@ -124,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         if let button = statusItem.button
         {
             button.action = #selector(statusBarClicked)
-            button.sendAction(on: [.leftMouseDown, .rightMouseUp])
+            button.sendAction(on: [.leftMouseDown, .rightMouseUp, .otherMouseUp])
         }
         
         // AB: actually, we want to preserve the last seen image in case something changes out from under us
@@ -133,11 +134,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         //    self.refreshMenu()
         //}
         
-        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: nil, queue: nil)
-        { n in
-            if n.object as? Preferences == self.preferences
+        // TODO: do this on mouse leaving button, not menu bar change
+        NotificationCenter.default.addObserver(forName: NSWindow.didMoveNotification, object: nil, queue: nil)
+        { [weak self] n in
+            guard let `self` = self else { return }
+            if n.object is NSStatusBarWindow
             {
-                self.preferences = nil
+                if self.desktopShowReady == false
+                {
+                    self.toggleDesktop()
+                }
+                self.desktopShowReady = true
+            }
+        }
+        NotificationCenter.default.addObserver(forName: NSWindow.didChangeOcclusionStateNotification, object: nil, queue: nil)
+        { [weak self] n in
+            guard let `self` = self else { return }
+            if n.object is NSStatusBarWindow
+            {
+                if self.desktopShowReady == false
+                {
+                    self.toggleDesktop()
+                }
+                self.desktopShowReady = true
             }
         }
         
@@ -314,7 +333,15 @@ extension AppDelegate
         
         if event.type == NSEvent.EventType.rightMouseUp
         {
-            refreshImage()
+            if self.desktopShowReady
+            {
+                self.desktopShowReady = false
+                toggleDesktop()
+            }
+            else
+            {
+                refreshImage()
+            }
         }
         else
         {
@@ -521,6 +548,19 @@ extension AppDelegate
         catch
         {
             print("ERROR: \(error)")
+        }
+    }
+    
+    func toggleDesktop()
+    {
+        let missionControlURL = URL.init(fileURLWithPath: "/").appendingPathComponent("Applications").appendingPathComponent("Mission Control.app").appendingPathComponent("Contents").appendingPathComponent("MacOS").appendingPathComponent("Mission Control")
+        
+        if FileManager.default.isExecutableFile(atPath: missionControlURL.path)
+        {
+            let task = Process()
+            task.launchPath = missionControlURL.path
+            task.arguments = ["1"]
+            task.launch()
         }
     }
 }

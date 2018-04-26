@@ -9,17 +9,36 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Preferences" customModule="BackgroundifierCompanion" customModuleProvider="target">
             <connections>
+                <outlet property="aboutText" destination="kzt-cb-9Tf" id="UnF-bN-Nlk"/>
+                <outlet property="archiveClear" destination="NB1-Fc-eMM" id="NaA-1X-Qsy"/>
+                <outlet property="archivePath" destination="c9i-cy-Run" id="8Sc-zK-JLz"/>
+                <outlet property="archiveShow" destination="cDs-3m-FMH" id="k8f-tD-7ty"/>
+                <outlet property="archiveText" destination="85z-VV-Lnb" id="a9U-Qm-9qx"/>
+                <outlet property="bgifyClear" destination="Ked-RS-3Gu" id="lMp-nu-unX"/>
+                <outlet property="bgifyPath" destination="U3h-TV-il7" id="pb1-xm-bNy"/>
+                <outlet property="bgifyShow" destination="dMa-rS-ulk" id="5y9-I4-6fd"/>
+                <outlet property="bgifyText" destination="A0R-yZ-pYb" id="jER-ZP-rRL"/>
+                <outlet property="enableConversion" destination="UJO-96-Ff7" id="v9U-xx-fZI"/>
+                <outlet property="enableConversionText" destination="uqQ-GT-HmB" id="PKH-je-eNa"/>
+                <outlet property="outputClear" destination="cla-Q3-wK5" id="ZL7-cH-a9k"/>
+                <outlet property="outputPath" destination="LCj-PJ-HhT" id="VVa-AK-G3X"/>
+                <outlet property="outputShow" destination="Nj5-Q9-oZb" id="2EN-Yg-rbj"/>
+                <outlet property="outputText" destination="p6b-cn-gkI" id="UpW-2J-suy"/>
+                <outlet property="sourceClear" destination="zp9-rS-Zbk" id="FIv-rs-fy3"/>
+                <outlet property="sourcePath" destination="JMm-hK-n0R" id="gAJ-SL-JwX"/>
+                <outlet property="sourceShow" destination="suS-zv-xfT" id="zkJ-B5-bzc"/>
+                <outlet property="sourceText" destination="nvW-tD-kxl" id="qod-OK-cXg"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="r44-eR-ifb"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window identifier="Preferences" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="Preferences" customModule="BackgroundifierCompanion" customModuleProvider="target">
+        <window identifier="Preferences" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="474" height="528"/>
+            <rect key="contentRect" x="196" y="240" width="519" height="498"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
-            <view key="contentView" wantsLayer="YES" misplaced="YES" id="EiT-Mj-1SZ">
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="519" height="591"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
@@ -41,6 +60,9 @@
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <connections>
+                                                        <action selector="convertAction:" target="-2" id="lQ4-de-9tW"/>
+                                                    </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uqQ-GT-HmB">
                                                     <rect key="frame" x="-2" y="0.0" width="441" height="28"/>
@@ -83,7 +105,7 @@
                                                     <rect key="frame" x="0.0" y="34" width="465" height="22"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="1" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMm-hK-n0R">
-                                                            <rect key="frame" x="-3" y="-2" width="342" height="26"/>
+                                                            <rect key="frame" x="-3" y="-2" width="341" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="B9R-PN-HUa">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -93,7 +115,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSb-uC-OjC">
-                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="zp9-rS-Zbk">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -106,11 +128,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalHuggingPriority="750" tag="21" translatesAutoresizingMaskIntoConstraints="NO" id="suS-zv-xfT">
-                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
-                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="crv-cM-9J8">
+                                                                    <rect key="frame" x="54" y="-7" width="74" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Show" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="crv-cM-9J8">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="openAction:" target="-2" id="n3W-11-mQW"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <visibilityPriorities>
@@ -176,7 +201,7 @@
                                                     <rect key="frame" x="0.0" y="50" width="465" height="23"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="2" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LCj-PJ-HhT">
-                                                            <rect key="frame" x="-3" y="-1" width="342" height="26"/>
+                                                            <rect key="frame" x="-3" y="-1" width="341" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="Vwq-Nf-kVf">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -186,7 +211,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-QH-Nzk">
-                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="cla-Q3-wK5">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -199,11 +224,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalHuggingPriority="750" tag="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nj5-Q9-oZb">
-                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
-                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yQV-fZ-x7d">
+                                                                    <rect key="frame" x="54" y="-7" width="74" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Show" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yQV-fZ-x7d">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="openAction:" target="-2" id="8yl-Fx-h70"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <visibilityPriorities>
@@ -269,7 +297,7 @@
                                                     <rect key="frame" x="0.0" y="20" width="465" height="22"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="3" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9i-cy-Run">
-                                                            <rect key="frame" x="-3" y="-2" width="342" height="26"/>
+                                                            <rect key="frame" x="-3" y="-2" width="341" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="lvE-0w-cbc">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -279,7 +307,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-BH-c50">
-                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="NB1-Fc-eMM">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -292,11 +320,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalHuggingPriority="750" tag="23" translatesAutoresizingMaskIntoConstraints="NO" id="cDs-3m-FMH">
-                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
-                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7wr-qG-IOA">
+                                                                    <rect key="frame" x="54" y="-7" width="74" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Show" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7wr-qG-IOA">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="openAction:" target="-2" id="TeJ-7w-8IU"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <visibilityPriorities>
@@ -361,7 +392,7 @@
                                                     <rect key="frame" x="0.0" y="34" width="465" height="23"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="4" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3h-TV-il7">
-                                                            <rect key="frame" x="-3" y="-1" width="342" height="26"/>
+                                                            <rect key="frame" x="-3" y="-1" width="341" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="Snk-64-JaP">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -371,7 +402,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LOo-vb-owz">
-                                                            <rect key="frame" x="344" y="0.0" width="121" height="21"/>
+                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ked-RS-3Gu">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -384,11 +415,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalHuggingPriority="750" tag="24" translatesAutoresizingMaskIntoConstraints="NO" id="dMa-rS-ulk">
-                                                                    <rect key="frame" x="54" y="-7" width="73" height="32"/>
-                                                                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QMI-TP-cg9">
+                                                                    <rect key="frame" x="54" y="-7" width="74" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Show" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QMI-TP-cg9">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="openAction:" target="-2" id="Dfk-0z-D7L"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <visibilityPriorities>
@@ -445,13 +479,16 @@
                                 <rect key="frame" x="24" y="62" width="432" height="5"/>
                             </box>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kzt-cb-9Tf">
-                                <rect key="frame" x="6" y="0.0" width="467" height="48"/>
+                                <rect key="frame" x="3" y="0.0" width="473" height="48"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="odD-am-7Yt">
                                     <font key="font" metaFont="cellTitle"/>
-                                    <string key="title">BackgroundifierCompanion 0.5 is made by Alexei Baboulevitch, for use in concert with Backgroundifier-produced images. You can read more about it at http://archagon.net/my-blog-post. Enjoy! 😊</string>
+                                    <string key="title">BackgroundifierCompanion 0.5 is made by Alexei Baboulevitch, for use in concert with Backgroundifier processed images. You can read more about it at %url. Enjoy! 😊</string>
                                     <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="7Oo-0N-NRP"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <constraints>
@@ -488,7 +525,7 @@
                     <constraint firstItem="m3f-Ms-JTR" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="ZBA-Qv-TKy"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-125" y="-234"/>
+            <point key="canvasLocation" x="-125.5" y="-396"/>
         </window>
     </objects>
 </document>

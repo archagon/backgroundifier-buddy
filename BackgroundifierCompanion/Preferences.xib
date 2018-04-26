@@ -36,17 +36,17 @@
         <window identifier="Preferences" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="519" height="498"/>
+            <rect key="contentRect" x="196" y="240" width="519" height="442"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
-            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="519" height="591"/>
+            <view key="contentView" wantsLayer="YES" misplaced="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="519" height="583"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3f-Ms-JTR">
-                        <rect key="frame" x="20" y="20" width="479" height="551"/>
+                        <rect key="frame" x="20" y="20" width="479" height="543"/>
                         <subviews>
                             <box title="Automatic Conversion" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="msA-6D-9ku">
-                                <rect key="frame" x="-3" y="485" width="485" height="68"/>
+                                <rect key="frame" x="-3" y="477" width="485" height="68"/>
                                 <view key="contentView" id="13D-hx-7wx">
                                     <rect key="frame" x="2" y="2" width="481" height="64"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,21 +92,21 @@
                                     </constraints>
                                 </view>
                             </box>
-                            <box title="Source Image Directory" translatesAutoresizingMaskIntoConstraints="NO" id="Hwq-ek-v1l">
-                                <rect key="frame" x="-3" y="384" width="485" height="89"/>
+                            <box title="Source Image Directory" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Hwq-ek-v1l">
+                                <rect key="frame" x="-3" y="378" width="485" height="89"/>
                                 <view key="contentView" id="AdL-SG-WE4">
-                                    <rect key="frame" x="2" y="2" width="481" height="72"/>
+                                    <rect key="frame" x="2" y="2" width="481" height="85"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yzG-k3-M5M">
-                                            <rect key="frame" x="8" y="8" width="465" height="56"/>
+                                            <rect key="frame" x="8" y="8" width="465" height="69"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqx-B8-uJz">
-                                                    <rect key="frame" x="0.0" y="34" width="465" height="22"/>
+                                                    <rect key="frame" x="0.0" y="34" width="465" height="35"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="1" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMm-hK-n0R">
-                                                            <rect key="frame" x="-3" y="-2" width="341" height="26"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="B9R-PN-HUa">
+                                                            <rect key="frame" x="-3" y="6" width="341" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose source image directory..." pathStyle="popUp" id="B9R-PN-HUa">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
                                                             <connections>
@@ -115,7 +115,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSb-uC-OjC">
-                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
+                                                            <rect key="frame" x="343" y="7" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="zp9-rS-Zbk">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -188,21 +188,21 @@
                                     </constraints>
                                 </view>
                             </box>
-                            <box title="Output Image Directory" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-l4-kUJ">
-                                <rect key="frame" x="-3" y="266" width="485" height="106"/>
+                            <box title="Output Image Directory" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-l4-kUJ">
+                                <rect key="frame" x="-3" y="262" width="485" height="106"/>
                                 <view key="contentView" id="mVs-mU-iEF">
-                                    <rect key="frame" x="2" y="2" width="481" height="89"/>
+                                    <rect key="frame" x="2" y="2" width="481" height="102"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byd-Nf-ZAB">
-                                            <rect key="frame" x="8" y="8" width="465" height="73"/>
+                                            <rect key="frame" x="8" y="8" width="465" height="86"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KgN-Pt-dri">
-                                                    <rect key="frame" x="0.0" y="50" width="465" height="23"/>
+                                                    <rect key="frame" x="0.0" y="50" width="465" height="36"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="2" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LCj-PJ-HhT">
-                                                            <rect key="frame" x="-3" y="-1" width="341" height="26"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="Vwq-Nf-kVf">
+                                                            <rect key="frame" x="-3" y="4" width="341" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose output image directory..." pathStyle="popUp" id="Vwq-Nf-kVf">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
                                                             <connections>
@@ -211,7 +211,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-QH-Nzk">
-                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
+                                                            <rect key="frame" x="343" y="6" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="cla-Q3-wK5">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -284,21 +284,21 @@
                                     </constraints>
                                 </view>
                             </box>
-                            <box title="Image Archive Directory" translatesAutoresizingMaskIntoConstraints="NO" id="Ow3-79-0kp">
-                                <rect key="frame" x="-3" y="179" width="485" height="75"/>
+                            <box title="Image Archive Directory" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ow3-79-0kp">
+                                <rect key="frame" x="-3" y="177" width="485" height="75"/>
                                 <view key="contentView" id="vLZ-JG-Ga7">
-                                    <rect key="frame" x="2" y="2" width="481" height="58"/>
+                                    <rect key="frame" x="2" y="2" width="481" height="71"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ndc-3H-ZU6">
-                                            <rect key="frame" x="8" y="8" width="465" height="42"/>
+                                            <rect key="frame" x="8" y="8" width="465" height="55"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xra-BO-gkq">
-                                                    <rect key="frame" x="0.0" y="20" width="465" height="22"/>
+                                                    <rect key="frame" x="0.0" y="20" width="465" height="35"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="3" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9i-cy-Run">
-                                                            <rect key="frame" x="-3" y="-2" width="341" height="26"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="lvE-0w-cbc">
+                                                            <rect key="frame" x="-3" y="4" width="341" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose image archive directory..." pathStyle="popUp" id="lvE-0w-cbc">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
                                                             <connections>
@@ -307,7 +307,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-BH-c50">
-                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
+                                                            <rect key="frame" x="343" y="5" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="NB1-Fc-eMM">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -379,21 +379,21 @@
                                     </constraints>
                                 </view>
                             </box>
-                            <box title="Backgroundifier Path" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-xm-eom">
+                            <box title="Backgroundifier Path" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-xm-eom">
                                 <rect key="frame" x="-3" y="77" width="485" height="90"/>
                                 <view key="contentView" id="r6J-fI-B0S">
-                                    <rect key="frame" x="2" y="2" width="481" height="73"/>
+                                    <rect key="frame" x="2" y="2" width="481" height="86"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mbG-pk-exQ">
-                                            <rect key="frame" x="8" y="8" width="465" height="57"/>
+                                            <rect key="frame" x="8" y="8" width="465" height="70"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0tx-Hy-1GO">
-                                                    <rect key="frame" x="0.0" y="34" width="465" height="23"/>
+                                                    <rect key="frame" x="0.0" y="34" width="465" height="36"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="4" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3h-TV-il7">
-                                                            <rect key="frame" x="-3" y="-1" width="341" height="26"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="Snk-64-JaP">
+                                                            <rect key="frame" x="-3" y="4" width="341" height="26"/>
+                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose Backgroundifier executable path..." pathStyle="popUp" id="Snk-64-JaP">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
                                                             <connections>
@@ -402,7 +402,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LOo-vb-owz">
-                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
+                                                            <rect key="frame" x="343" y="6" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ked-RS-3Gu">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -525,7 +525,7 @@
                     <constraint firstItem="m3f-Ms-JTR" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="ZBA-Qv-TKy"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-125.5" y="-396"/>
+            <point key="canvasLocation" x="-125.5" y="-467"/>
         </window>
     </objects>
 </document>

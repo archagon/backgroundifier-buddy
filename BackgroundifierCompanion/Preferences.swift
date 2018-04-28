@@ -39,6 +39,11 @@ class Preferences: NSWindowController
     @IBOutlet var bgifyText: NSTextField!
     @IBOutlet var aboutText: NSTextField!
     
+    var sourceOriginalText: String!
+    var outputOriginalText: String!
+    var archiveOriginalText: String!
+    var bgifyOriginalText: String!
+    
     override func windowDidLoad()
     {
         super.windowDidLoad()
@@ -77,6 +82,19 @@ class Preferences: NSWindowController
                 aboutText.isSelectable = true
                 aboutText.allowsEditingTextAttributes = true
                 aboutText.attributedStringValue = aboutAttributedString
+            }
+            
+            textSetup: do
+            {
+                self.sourceOriginalText = self.sourceText.stringValue
+                self.outputOriginalText = self.outputText.stringValue
+                self.archiveOriginalText = self.archiveText.stringValue
+                self.bgifyOriginalText = self.bgifyText.stringValue
+                
+                setLabelText(self.sourceOriginalText, forField: self.sourceText)
+                setLabelText(self.outputOriginalText, forField: self.outputText)
+                setLabelText(self.archiveOriginalText, forField: self.archiveText)
+                setLabelText(self.bgifyOriginalText, forField: self.bgifyText)
             }
         }
         
@@ -126,8 +144,6 @@ class Preferences: NSWindowController
         archivePath.url = archiveUrl
         bgifyPath.url = bgifyUrl
         
-        enableConversion.state = (UserDefaults.standard.bool(forKey: DefaultsKeys.conversionEnabled.rawValue) ? .on : .off)
-        
         if sourceUrl == nil || outputUrl == nil
         {
             enableConversion.isEnabled = false
@@ -138,59 +154,62 @@ class Preferences: NSWindowController
             enableConversion.isEnabled = true
             enableConversionText.alphaValue = 1
         }
+        
+        enableConversion.state = (UserDefaults.standard.bool(forKey: DefaultsKeys.conversionEnabled.rawValue) ? .on : .off)
+        
+        if sourceUrl != nil && sourceUrl == outputUrl
+        {
+            setLabelText(self.sourceOriginalText, forField: self.sourceText, withError: "Error: source directory must be different from output directory.")
+            setLabelText(self.outputOriginalText, forField: self.outputText, withError: "Error: source directory must be different from output directory.")
+         
+            enableConversion.isEnabled = false
+            enableConversionText.alphaValue = 0.75
+        }
+        else
+        {
+            setLabelText(self.sourceOriginalText, forField: self.sourceText)
+            setLabelText(self.outputOriginalText, forField: self.outputText)
+        }
+        
+        if archiveUrl != nil && (archiveUrl == sourceUrl || archiveUrl == outputUrl)
+        {
+            setLabelText(self.archiveOriginalText, forField: self.archiveText, withError: "Error: archive directory must be different from source or output directories.")
+        }
+        else
+        {
+            setLabelText(self.archiveOriginalText, forField: self.archiveText)
+        }
+        
+        refitWindow: do
+        {
+            guard let window = self.window, let contentView = window.contentView else
+            {
+                break refitWindow
+            }
+
+            window.setContentSize(contentView.fittingSize)
+        }
     }
     
-    func urlForKey(_ key: DefaultsKeys, rawValue: Bool = false) -> URL?
+    func setLabelText(_ text: String, forField field: NSTextField, withError error: String? = nil)
     {
-        if rawValue
+        let baseAttributes: [NSAttributedStringKey:Any] = [:]
+        var textAttributes = baseAttributes
+        textAttributes[NSAttributedStringKey.font] = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: NSControl.ControlSize.small))
+        textAttributes[NSAttributedStringKey.foregroundColor] = NSColor.labelColor
+        var errorAttributes = baseAttributes
+        errorAttributes[NSAttributedStringKey.foregroundColor] = NSColor.systemRed
+        errorAttributes[NSAttributedStringKey.font] = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: NSControl.ControlSize.small), weight: NSFont.Weight.bold)
+        
+        let attributedText = NSMutableAttributedString.init(string: text, attributes: textAttributes)
+        
+        if let error = error
         {
-            return UserDefaults.standard.url(forKey: key.rawValue)
+            let errorString = NSMutableAttributedString.init(string: " \(error)", attributes: errorAttributes)
+            attributedText.append(errorString)
         }
         
-        switch key
-        {
-        case .sourcePath:
-            if let url = UserDefaults.standard.url(forKey: DefaultsKeys.sourcePath.rawValue)
-            {
-                if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
-                {
-                    return url
-                }
-            }
-        case .outputPath:
-            if let url = UserDefaults.standard.url(forKey: DefaultsKeys.outputPath.rawValue)
-            {
-                if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
-                {
-                    return url
-                }
-            }
-        case .archivePath:
-            if let url = UserDefaults.standard.url(forKey: DefaultsKeys.archivePath.rawValue)
-            {
-                if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
-                {
-                    return url
-                }
-            }
-        case .backgroundifierPath:
-            if var url = UserDefaults.standard.url(forKey: DefaultsKeys.backgroundifierPath.rawValue)
-            {
-                if url.hasDirectoryPath
-                {
-                    url = url.appendingPathComponent("Contents").appendingPathComponent("MacOS").appendingPathComponent("Backgroundifier")
-                }
-                
-                if FileManager.default.fileExists(atPath: url.path) && FileManager.default.isExecutableFile(atPath: url.path)
-                {
-                    return url
-                }
-            }
-        default:
-            return nil
-        }
-        
-        return nil
+        field.attributedStringValue = attributedText
     }
 }
 
@@ -199,6 +218,8 @@ extension Preferences
 {
     @IBAction func convertAction(_ button: NSButton)
     {
+        let oldValue = UserDefaults.standard.bool(forKey: DefaultsKeys.conversionEnabled.rawValue)
+        UserDefaults.standard.set(!oldValue, forKey: DefaultsKeys.conversionEnabled.rawValue)
     }
     
     @IBAction func clearAction(_ button: NSButton)
@@ -324,4 +345,57 @@ extension Preferences: NSPathControlDelegate
 
 extension Preferences: NSTextFieldDelegate
 {
+}
+
+func urlForKey(_ key: Preferences.DefaultsKeys, rawValue: Bool = false) -> URL?
+{
+    if rawValue
+    {
+        return UserDefaults.standard.url(forKey: key.rawValue)
+    }
+    
+    switch key
+    {
+    case .sourcePath:
+        if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.sourcePath.rawValue)
+        {
+            if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
+            {
+                return url
+            }
+        }
+    case .outputPath:
+        if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.outputPath.rawValue)
+        {
+            if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
+            {
+                return url
+            }
+        }
+    case .archivePath:
+        if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.archivePath.rawValue)
+        {
+            if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
+            {
+                return url
+            }
+        }
+    case .backgroundifierPath:
+        if var url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.backgroundifierPath.rawValue)
+        {
+            if url.hasDirectoryPath
+            {
+                url = url.appendingPathComponent("Contents").appendingPathComponent("MacOS").appendingPathComponent("Backgroundifier")
+            }
+            
+            if FileManager.default.fileExists(atPath: url.path) && FileManager.default.isExecutableFile(atPath: url.path)
+            {
+                return url
+            }
+        }
+    default:
+        return nil
+    }
+    
+    return nil
 }

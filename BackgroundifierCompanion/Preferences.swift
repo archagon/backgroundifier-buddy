@@ -131,7 +131,7 @@ class Preferences: NSWindowController
         if sourceUrl == nil || outputUrl == nil
         {
             enableConversion.isEnabled = false
-            enableConversionText.alphaValue = 0.5
+            enableConversionText.alphaValue = 0.75
         }
         else
         {

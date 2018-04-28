@@ -39,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         case separator2
         case open
         case openReal
+        case favorite
         case archive
         case archiveKeep
         case delete
@@ -59,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             menu.autoenablesItems = false
             menu.delegate = self
             
-            let cycleItem = NSMenuItem.init(title: "Next Image", action: #selector(clickedCycle), keyEquivalent: "c")
+            let cycleItem = NSMenuItem.init(title: "Next Image", action: #selector(clickedCycle), keyEquivalent: "n")
             menu.addItem(cycleItem)
             assert(menu.items.count - 1 == MenuItem.cycle.rawValue)
             
@@ -81,12 +82,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             menu.addItem(openItem)
             assert(menu.items.count - 1 == MenuItem.open.rawValue)
             
-            let openRealItem = NSMenuItem.init(title: "🔍 Reveal Displayed Image", action: #selector(clickedOpenDisplayed), keyEquivalent: "r")
+            let openRealItem = NSMenuItem.init(title: "🔍 Reveal Wallpaper", action: #selector(clickedOpenDisplayed), keyEquivalent: "r")
             openRealItem.keyEquivalentModifierMask = [NSEvent.ModifierFlags.option]
             openRealItem.isAlternate = true
             //openRealItem.indentationLevel = 1
             menu.addItem(openRealItem)
             assert(menu.items.count - 1 == MenuItem.openReal.rawValue)
+            
+            let favoriteItem = NSMenuItem.init(title: "⭐️ Favorite Image", action: #selector(clickedFavorite), keyEquivalent: "f")
+            //openRealItem.indentationLevel = 1
+            menu.addItem(favoriteItem)
+            assert(menu.items.count - 1 == MenuItem.favorite.rawValue)
             
             //🗄
             let archiveItem = NSMenuItem.init(title: "🗂 Archive Image", action: #selector(clickedArchive), keyEquivalent: "a")
@@ -134,31 +140,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         //    self.refreshMenu()
         //}
         
-        // TODO: do this on mouse leaving button, not menu bar change
-        NotificationCenter.default.addObserver(forName: NSWindow.didMoveNotification, object: nil, queue: nil)
-        { [weak self] n in
-            guard let `self` = self else { return }
-            if n.object is NSStatusBarWindow
-            {
-                if self.desktopShowReady == false
-                {
-                    self.toggleDesktop()
-                }
-                self.desktopShowReady = true
-            }
-        }
-        NotificationCenter.default.addObserver(forName: NSWindow.didChangeOcclusionStateNotification, object: nil, queue: nil)
-        { [weak self] n in
-            guard let `self` = self else { return }
-            if n.object is NSStatusBarWindow
-            {
-                if self.desktopShowReady == false
-                {
-                    self.toggleDesktop()
-                }
-                self.desktopShowReady = true
-            }
-        }
+        // TODO: do this on mouse leaving button, not menu bar change: https://stackoverflow.com/questions/6094763/simple-mouseover-effect-on-nsbutton
+        //NotificationCenter.default.addObserver(forName: NSWindow.didMoveNotification, object: nil, queue: nil)
+        //{ [weak self] n in
+        //    guard let `self` = self else { return }
+        //    if n.object is NSStatusBarWindow
+        //    {
+        //        if self.desktopShowReady == false
+        //        {
+        //            self.toggleDesktop()
+        //        }
+        //        self.desktopShowReady = true
+        //    }
+        //}
+        //NotificationCenter.default.addObserver(forName: NSWindow.didChangeOcclusionStateNotification, object: nil, queue: nil)
+        //{ [weak self] n in
+        //    guard let `self` = self else { return }
+        //    if n.object is NSStatusBarWindow
+        //    {
+        //        if self.desktopShowReady == false
+        //        {
+        //            self.toggleDesktop()
+        //        }
+        //        self.desktopShowReady = true
+        //    }
+        //}
         
         refreshMenu()
         initMonitor()
@@ -195,6 +201,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         
         self.menu.item(at: MenuItem.open.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.openReal.rawValue)?.isEnabled = true
+        self.menu.item(at: MenuItem.favorite.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.archive.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.archiveKeep.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.delete.rawValue)?.isEnabled = true
@@ -204,6 +211,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             if !currentFileExistsInCorrectDirectory()
             {
                 self.menu.item(at: MenuItem.open.rawValue)?.isEnabled = false
+                self.menu.item(at: MenuItem.openReal.rawValue)?.isEnabled = false
+                self.menu.item(at: MenuItem.favorite.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.archive.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.archiveKeep.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.delete.rawValue)?.isEnabled = false
@@ -212,6 +221,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             if !originalFileExists()
             {
                 self.menu.item(at: MenuItem.open.rawValue)?.isEnabled = false
+                self.menu.item(at: MenuItem.favorite.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.archive.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.archiveKeep.rawValue)?.isEnabled = false
             }
@@ -333,15 +343,24 @@ extension AppDelegate
         
         if event.type == NSEvent.EventType.rightMouseUp
         {
-            if self.desktopShowReady
+
+            if event.clickCount >= 2
             {
-                self.desktopShowReady = false
                 toggleDesktop()
             }
             else
             {
                 refreshImage()
             }
+            //if self.desktopShowReady
+            //{
+            //    self.desktopShowReady = false
+            //    toggleDesktop()
+            //}
+            //else
+            //{
+            //    refreshImage()
+            //}
         }
         else
         {
@@ -366,6 +385,39 @@ extension AppDelegate
     @objc func clickedOpenDisplayed(_ item: NSMenuItem)
     {
         show(currentUrl)
+    }
+    
+    @objc func clickedFavorite(_ item: NSMenuItem)
+    {
+        if !originalFileExists()
+        {
+            return
+        }
+        
+        let url = originalUrl
+        
+        do
+        {
+            let resourceValues = try url.resourceValues(forKeys: [.tagNamesKey])
+            
+            var tags: [String]
+            if let tagNames = resourceValues.tagNames
+            {
+                tags = tagNames
+            }
+            else
+            {
+                tags = [String]()
+            }
+
+            tags += ["Backgroundifier Favorite"]
+            
+            try (url as NSURL).setResourceValue(tags, forKey: .tagNamesKey)
+        }
+        catch
+        {
+            print("ERROR: \(error)")
+        }
     }
     
     @objc func clickedArchive(_ item: NSMenuItem)
@@ -503,13 +555,7 @@ extension AppDelegate
             return false
         }
         
-        let out = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor/encode/\((file.lastPathComponent as NSString).deletingPathExtension).jpg")
-        
-        if out.hasDirectoryPath
-        {
-            print("ERROR: invalid image output")
-            return false
-        }
+        let out = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor/encode/\((file.lastPathComponent as NSString).deletingPathExtension)")
         
         // TODO: figure out how to expand sandbox to include output folder
         let task = Process()

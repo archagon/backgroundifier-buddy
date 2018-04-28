@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     
     let conn = _CGSDefaultConnection()
     var monitor: FileChangeMonitor?
-    var desktopShowReady: Bool = true
+    var desktopHasBeenToggled: Bool = false
     
     // TODO: set these in preferences
     let hardcodedBackgroundifierPath = URL.init(fileURLWithPath: "/Applications/Backgroundifier.app", isDirectory: true, relativeTo: nil)
@@ -132,38 +132,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         {
             button.action = #selector(statusBarClicked)
             button.sendAction(on: [.leftMouseDown, .rightMouseUp, .otherMouseUp])
+
+            let trackingArea = NSTrackingArea.init(rect: button.bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
+            button.addTrackingArea(trackingArea)
         }
         
         // AB: actually, we want to preserve the last seen image in case something changes out from under us
         //NotificationCenter.default.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: nil)
         //{ notification in
         //    self.refreshMenu()
-        //}
-        
-        // TODO: do this on mouse leaving button, not menu bar change: https://stackoverflow.com/questions/6094763/simple-mouseover-effect-on-nsbutton
-        //NotificationCenter.default.addObserver(forName: NSWindow.didMoveNotification, object: nil, queue: nil)
-        //{ [weak self] n in
-        //    guard let `self` = self else { return }
-        //    if n.object is NSStatusBarWindow
-        //    {
-        //        if self.desktopShowReady == false
-        //        {
-        //            self.toggleDesktop()
-        //        }
-        //        self.desktopShowReady = true
-        //    }
-        //}
-        //NotificationCenter.default.addObserver(forName: NSWindow.didChangeOcclusionStateNotification, object: nil, queue: nil)
-        //{ [weak self] n in
-        //    guard let `self` = self else { return }
-        //    if n.object is NSStatusBarWindow
-        //    {
-        //        if self.desktopShowReady == false
-        //        {
-        //            self.toggleDesktop()
-        //        }
-        //        self.desktopShowReady = true
-        //    }
         //}
         
         refreshMenu()
@@ -191,7 +168,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         self.menu.item(at: MenuItem.cycle.rawValue)?.isEnabled = data.cycling
         
         self.menu.item(at: MenuItem.imageName.rawValue)?.isEnabled = false
-        //self.menu.item(at: MenuItem.imageName.rawValue)?.attributedTitle = NSAttributedString.init(string: "Test", attributes: [ NSAttributedStringKey.foregroundColor : NSColor.blue ])
         self.menu.item(at: MenuItem.imageName.rawValue)?.title = truncatedString
         self.menu.item(at: MenuItem.imageName.rawValue)?.toolTip = "\((data.folder as NSString).appendingPathComponent(data.name))"
         
@@ -337,30 +313,52 @@ extension AppDelegate
 
 extension AppDelegate
 {
+    @objc func mouseEntered(_ event: NSEvent)
+    {
+        self.desktopHasBeenToggled = false
+    }
+    @objc func mouseExited(_ event: NSEvent)
+    {
+        if self.desktopHasBeenToggled
+        {
+            toggleDesktop()
+            self.desktopHasBeenToggled = false
+        }
+    }
+    
     @objc func statusBarClicked(sender: NSStatusBarButton)
     {
         let event = NSApp.currentEvent!
         
         if event.type == NSEvent.EventType.rightMouseUp
         {
+            //if event.mouseDo.contains(.option)
+            //{
+            //    refreshImage()
+            //}
+            //else
+            //{
+            //    toggleDesktop()
+            //}
+            
+            //self.perform(#selector(refreshImage), with: nil, afterDelay: NSEvent.doubleClickInterval)
+            //
+            //if event.clickCount >= 2
+            //{
+            //    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(refreshImage), object: nil)
+            //
+            //    toggleDesktop()
+            //}
 
-            if event.clickCount >= 2
+            if !self.desktopHasBeenToggled
             {
+                self.desktopHasBeenToggled = true
                 toggleDesktop()
             }
             else
             {
                 refreshImage()
             }
-            //if self.desktopShowReady
-            //{
-            //    self.desktopShowReady = false
-            //    toggleDesktop()
-            //}
-            //else
-            //{
-            //    refreshImage()
-            //}
         }
         else
         {
@@ -569,7 +567,7 @@ extension AppDelegate
         return task.terminationStatus == 0
     }
     
-    func refreshImage()
+    @objc func refreshImage()
     {
         let space = NSWorkspace.shared
         

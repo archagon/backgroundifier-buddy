@@ -65,10 +65,10 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uqQ-GT-HmB">
-                                                    <rect key="frame" x="-2" y="0.0" width="441" height="42"/>
+                                                    <rect key="frame" x="-2" y="0.0" width="459" height="42"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="eYU-DW-oN2">
                                                         <font key="font" metaFont="smallSystem"/>
-                                                        <string key="title">Automatically use Backgroundifier to convert images in the Source directory to the Output directory. Does not currently track edits or unconverted images, only new additions.</string>
+                                                        <string key="title">Automatically use Backgroundifier to convert images in the Source directory to the Output directory. Only works while the Companion app is runnning. Does not currently track edits or unconverted images, only new additions.</string>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -115,7 +115,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSb-uC-OjC">
-                                                            <rect key="frame" x="343" y="1" width="122" height="21"/>
+                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="zp9-rS-Zbk">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -164,7 +164,7 @@
                                                     <rect key="frame" x="-2" y="0.0" width="469" height="42"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="QI0-zc-5bA">
                                                         <font key="font" metaFont="smallSystem"/>
-                                                        <string key="title">The directory containing all your original images. Needs to be a subdirectory inside your ~/Pictures directory for automatic conversion to work if using the sandboxed Backgroundifier.app.</string>
+                                                        <string key="title">The directory containing all your original images. Needs to be a subdirectory inside your ~/Pictures directory for automatic conversion to work, if using the sandboxed Backgroundifier.app.</string>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -201,7 +201,7 @@
                                                     <rect key="frame" x="0.0" y="50" width="465" height="36"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" tag="2" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LCj-PJ-HhT">
-                                                            <rect key="frame" x="-3" y="6" width="341" height="26"/>
+                                                            <rect key="frame" x="-3" y="4" width="341" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose output image directory..." pathStyle="popUp" id="Vwq-Nf-kVf">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -211,7 +211,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-QH-Nzk">
-                                                            <rect key="frame" x="343" y="8" width="122" height="21"/>
+                                                            <rect key="frame" x="343" y="6" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="cla-Q3-wK5">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -307,7 +307,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-BH-c50">
-                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
+                                                            <rect key="frame" x="343" y="1" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="NB1-Fc-eMM">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>

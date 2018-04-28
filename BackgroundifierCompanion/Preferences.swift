@@ -12,6 +12,7 @@ class Preferences: NSWindowController
 {
     enum DefaultsKeys: String
     {
+        case firstLaunch
         case conversionEnabled
         case sourcePath
         case outputPath
@@ -57,9 +58,9 @@ class Preferences: NSWindowController
             
             aboutTextStyling: do
             {
-                var aboutText1 = "%@ is made by Alexei Baboulevitch, for use in concert with Backgroundifier processed images. You can read more about it at "
+                var aboutText1 = "%@ is copyright © 2018 Alexei Baboulevitch. For use in concert with Backgroundifier, which you can read about at "
                 let aboutText2 = ". Enjoy! 😊"
-                let aboutTextName = "BackgroundifierCompanion 0.1"
+                let aboutTextName = "\(Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
                 let aboutTextUrl = "http://backgroundifier.archagon.net"
                 aboutText1 = String.init(format: aboutText1, aboutTextName)
                 
@@ -113,21 +114,21 @@ class Preferences: NSWindowController
         var archiveUrl: URL? = nil
         var bgifyUrl: URL? = nil
         
-        if let _ = urlForKey(.sourcePath)
+        if let _ = AppDelegate.urlForKey(.sourcePath)
         {
-            sourceUrl = urlForKey(.sourcePath, rawValue: true)
+            sourceUrl = AppDelegate.urlForKey(.sourcePath, rawValue: true)
         }
-        if let _ = urlForKey(.outputPath)
+        if let _ = AppDelegate.urlForKey(.outputPath)
         {
-            outputUrl = urlForKey(.outputPath, rawValue: true)
+            outputUrl = AppDelegate.urlForKey(.outputPath, rawValue: true)
         }
-        if let _ = urlForKey(.archivePath)
+        if let _ = AppDelegate.urlForKey(.archivePath)
         {
-            archiveUrl = urlForKey(.archivePath, rawValue: true)
+            archiveUrl = AppDelegate.urlForKey(.archivePath, rawValue: true)
         }
-        if let _ = urlForKey(.backgroundifierPath)
+        if let _ = AppDelegate.urlForKey(.backgroundifierPath)
         {
-            bgifyUrl = urlForKey(.backgroundifierPath, rawValue: true)
+            bgifyUrl = AppDelegate.urlForKey(.backgroundifierPath, rawValue: true)
         }
         
         sourceClear.isEnabled = sourceUrl != nil
@@ -144,15 +145,15 @@ class Preferences: NSWindowController
         archivePath.url = archiveUrl
         bgifyPath.url = bgifyUrl
         
-        if sourceUrl == nil || outputUrl == nil
-        {
-            enableConversion.isEnabled = false
-            enableConversionText.alphaValue = 0.75
-        }
-        else
+        if AppDelegate.conversionAllowed()
         {
             enableConversion.isEnabled = true
             enableConversionText.alphaValue = 1
+        }
+        else
+        {
+            enableConversion.isEnabled = false
+            enableConversionText.alphaValue = 0.75
         }
         
         enableConversion.state = (UserDefaults.standard.bool(forKey: DefaultsKeys.conversionEnabled.rawValue) ? .on : .off)
@@ -161,9 +162,6 @@ class Preferences: NSWindowController
         {
             setLabelText(self.sourceOriginalText, forField: self.sourceText, withError: "Error: source directory must be different from output directory.")
             setLabelText(self.outputOriginalText, forField: self.outputText, withError: "Error: source directory must be different from output directory.")
-         
-            enableConversion.isEnabled = false
-            enableConversionText.alphaValue = 0.75
         }
         else
         {
@@ -220,6 +218,7 @@ extension Preferences
     {
         let oldValue = UserDefaults.standard.bool(forKey: DefaultsKeys.conversionEnabled.rawValue)
         UserDefaults.standard.set(!oldValue, forKey: DefaultsKeys.conversionEnabled.rawValue)
+        UserDefaults.standard.synchronize()
     }
     
     @IBAction func clearAction(_ button: NSButton)
@@ -240,6 +239,8 @@ extension Preferences
         {
             UserDefaults.standard.set(nil, forKey: DefaultsKeys.backgroundifierPath.rawValue)
         }
+        
+        UserDefaults.standard.synchronize()
     }
     
     @IBAction func openAction(_ button: NSButton)
@@ -345,57 +346,4 @@ extension Preferences: NSPathControlDelegate
 
 extension Preferences: NSTextFieldDelegate
 {
-}
-
-func urlForKey(_ key: Preferences.DefaultsKeys, rawValue: Bool = false) -> URL?
-{
-    if rawValue
-    {
-        return UserDefaults.standard.url(forKey: key.rawValue)
-    }
-    
-    switch key
-    {
-    case .sourcePath:
-        if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.sourcePath.rawValue)
-        {
-            if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
-            {
-                return url
-            }
-        }
-    case .outputPath:
-        if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.outputPath.rawValue)
-        {
-            if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
-            {
-                return url
-            }
-        }
-    case .archivePath:
-        if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.archivePath.rawValue)
-        {
-            if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
-            {
-                return url
-            }
-        }
-    case .backgroundifierPath:
-        if var url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.backgroundifierPath.rawValue)
-        {
-            if url.hasDirectoryPath
-            {
-                url = url.appendingPathComponent("Contents").appendingPathComponent("MacOS").appendingPathComponent("Backgroundifier")
-            }
-            
-            if FileManager.default.fileExists(atPath: url.path) && FileManager.default.isExecutableFile(atPath: url.path)
-            {
-                return url
-            }
-        }
-    default:
-        return nil
-    }
-    
-    return nil
 }

@@ -304,7 +304,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Alexei-Baboulevitch.BackgroundifierCompanion";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.archagon.backgroundifier-companion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BackgroundifierCompanion/BackgroundifierCompanion-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -325,7 +325,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Alexei-Baboulevitch.BackgroundifierCompanion";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.archagon.backgroundifier-companion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BackgroundifierCompanion/BackgroundifierCompanion-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

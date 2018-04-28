@@ -17,19 +17,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     
     var data: (name: String, folder: String, cycling: Bool)!
     
-    var currentUrl: URL { return URL.init(fileURLWithPath: (data.folder as NSString).appendingPathComponent(data.name)) }
-    var originalUrl: URL { return URL.init(fileURLWithPath: (hardcodedOriginPath.path as NSString).appendingPathComponent(data.name)) }
-    var bgifyURL: URL { return hardcodedBackgroundifierPath.appendingPathComponent("Contents").appendingPathComponent("MacOS").appendingPathComponent("Backgroundifier") }
+    var currentUrl: URL? { return URL.init(fileURLWithPath: (data.folder as NSString).appendingPathComponent(data.name)) }
+    var originalUrl: URL? { return AppDelegate.urlForKey(.sourcePath)?.appendingPathComponent(data.name) }
     
     let conn = _CGSDefaultConnection()
     var monitor: FileChangeMonitor?
     var desktopHasBeenToggled: Bool = false
-    
-    // TODO: set these in preferences
-    let hardcodedBackgroundifierPath = URL.init(fileURLWithPath: "/Applications/Backgroundifier.app", isDirectory: true, relativeTo: nil)
-    let hardcodedOutputPath = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Output", isDirectory: true, relativeTo: nil)
-    let hardcodedOriginPath = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Inspiration (Watched)", isDirectory: true, relativeTo: nil)
-    let hardcodedArchivePath = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive", isDirectory: true, relativeTo: nil)
     
     enum MenuItem: Int
     {
@@ -50,6 +43,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     
     func applicationDidFinishLaunching(_ aNotification: Notification)
     {
+        if !UserDefaults.standard.bool(forKey: Preferences.DefaultsKeys.firstLaunch.rawValue)
+        {
+            if
+                let backgroundifierPath = URL.init(string: "/")?.appendingPathComponent("Applications").appendingPathComponent("Backgroundifier.app"),
+                FileManager.default.fileExists(atPath: backgroundifierPath.path)
+            {
+                UserDefaults.standard.set(backgroundifierPath.absoluteString, forKey: Preferences.DefaultsKeys.backgroundifierPath.rawValue)
+            }
+            
+            UserDefaults.standard.set(true, forKey: Preferences.DefaultsKeys.firstLaunch.rawValue)
+            UserDefaults.standard.synchronize()
+        }
+        
         self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         self.statusItem.image = NSImage.init(named: NSImage.Name(rawValue: "MenuIcon"))
 
@@ -143,8 +149,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         //    self.refreshMenu()
         //}
         
-        refreshMenu()
-        initMonitor()
+        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: nil)
+        { [weak self] n in
+            self?.refreshMenu()
+            self?.enableMonitor(UserDefaults.standard.bool(forKey: Preferences.DefaultsKeys.conversionEnabled.rawValue))
+        }
     }
     
     func refreshMenu()
@@ -178,8 +187,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         self.menu.item(at: MenuItem.open.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.openReal.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.favorite.rawValue)?.isEnabled = true
-        self.menu.item(at: MenuItem.archive.rawValue)?.isEnabled = true
-        self.menu.item(at: MenuItem.archiveKeep.rawValue)?.isEnabled = true
+        self.menu.item(at: MenuItem.archive.rawValue)?.isEnabled = AppDelegate.archiveAllowed()
+        self.menu.item(at: MenuItem.archiveKeep.rawValue)?.isEnabled = AppDelegate.archiveAllowed()
         self.menu.item(at: MenuItem.delete.rawValue)?.isEnabled = true
         
         disablingExceptions: do
@@ -211,13 +220,48 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
 // MARK: - Directory Monitoring -
 /////////////////////////////////
     
-    func initMonitor()
+    func enableMonitor(_ enabled: Bool)
     {
-        let monitoredUrl = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor")
-        let monitor = FileChangeMonitor.init(inDirectory: monitoredUrl)
-        monitor.delegate = self
-        monitor.startMonitoring()
-        self.monitor = monitor
+        func disableMonitoring()
+        {
+            if self.monitor != nil
+            {
+                self.monitor?.stopMonitoring()
+                self.monitor = nil
+                
+                print("Backgroundifier monitoring disabled")
+            }
+        }
+        
+        if !AppDelegate.conversionAllowed()
+        {
+            disableMonitoring()
+            return
+        }
+        
+        guard let monitoredUrl = AppDelegate.urlForKey(.sourcePath) else
+        {
+            disableMonitoring()
+            return
+        }
+        
+        if enabled
+        {
+            if self.monitor == nil
+            {
+                let monitor = FileChangeMonitor.init(inDirectory: monitoredUrl)
+                monitor.delegate = self
+                
+                self.monitor = monitor
+                self.monitor?.startMonitoring()
+                
+                print("Backgroundifier monitoring enabled")
+            }
+        }
+        else
+        {
+            disableMonitoring()
+        }
     }
 }
 
@@ -253,10 +297,13 @@ extension AppDelegate
 {
     func currentFileExistsInCorrectDirectory() -> Bool
     {
-        let url = currentUrl
+        let aUrl = currentUrl
+        
+        guard let url = aUrl else { return false }
+        guard let outputUrl = AppDelegate.urlForKey(.outputPath) else { return false }
         
         // AB: only track files which are in our assigned output directory
-        if url.deletingLastPathComponent() != hardcodedOutputPath { return false }
+        if url.deletingLastPathComponent() != outputUrl { return false }
         
         if !FileManager.default.fileExists(atPath: url.path) { return false }
         if url.hasDirectoryPath { return false }
@@ -266,7 +313,9 @@ extension AppDelegate
     
     func originalFileExists() -> Bool
     {
-        let url = originalUrl
+        let aUrl = originalUrl
+        
+        guard let url = aUrl else { return false }
         
         if !FileManager.default.fileExists(atPath: url.path) { return false }
         if url.hasDirectoryPath { return false }
@@ -276,7 +325,7 @@ extension AppDelegate
     
     func bgifyExists() -> Bool
     {
-        let url = bgifyURL
+        guard let url = AppDelegate.urlForKey(.backgroundifierPath) else { return false }
         
         if !FileManager.default.fileExists(atPath: url.path) { return false }
         if !FileManager.default.isExecutableFile(atPath: url.path) { return false }
@@ -286,15 +335,17 @@ extension AppDelegate
     
     func generateArchivePath() -> Bool
     {
-        if !hardcodedArchivePath.hasDirectoryPath { return false }
+        guard let url = AppDelegate.urlForKey(.archivePath) else { return false }
         
-        if !FileManager.default.fileExists(atPath: hardcodedArchivePath.path)
+        if !url.hasDirectoryPath { return false }
+        
+        if !FileManager.default.fileExists(atPath: url.path)
         {
-            print("WARNING: archive directory does not exist, creating at \(hardcodedArchivePath)")
+            print("WARNING: archive directory does not exist, creating at \(url)")
             
             do
             {
-                try FileManager.default.createDirectory(at: hardcodedArchivePath, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
             }
             catch
             {
@@ -377,12 +428,18 @@ extension AppDelegate
     
     @objc func clickedOpen(_ item: NSMenuItem)
     {
-        show(originalUrl)
+        if let url = originalUrl
+        {
+            show(url)
+        }
     }
     
     @objc func clickedOpenDisplayed(_ item: NSMenuItem)
     {
-        show(currentUrl)
+        if let url = currentUrl
+        {
+            show(url)
+        }
     }
     
     @objc func clickedFavorite(_ item: NSMenuItem)
@@ -392,7 +449,10 @@ extension AppDelegate
             return
         }
         
-        let url = originalUrl
+        guard let url = originalUrl else
+        {
+            return
+        }
         
         do
         {
@@ -480,6 +540,11 @@ extension AppDelegate
     
     func archive() -> Bool
     {
+        if !AppDelegate.archiveAllowed()
+        {
+            return false
+        }
+        
         if !originalFileExists() || !currentFileExistsInCorrectDirectory()
         {
             return false
@@ -490,7 +555,17 @@ extension AppDelegate
             return false
         }
         
-        var destinationURL = hardcodedArchivePath.appendingPathComponent(data.name)
+        guard let archivePath = AppDelegate.urlForKey(.archivePath) else
+        {
+            return false
+        }
+        
+        guard let originalPath = self.originalUrl else
+        {
+            return false
+        }
+        
+        var destinationURL = archivePath.appendingPathComponent(data.name)
         
         for i in 0..<1000
         {
@@ -500,7 +575,7 @@ extension AppDelegate
                 let ext = (data.name as NSString).pathExtension
                 let newName = ("\(name) (\(i + 1))" as NSString).appendingPathExtension(ext)!
                 
-                destinationURL = hardcodedArchivePath.appendingPathComponent(newName)
+                destinationURL = archivePath.appendingPathComponent(newName)
             }
             else
             {
@@ -516,7 +591,7 @@ extension AppDelegate
         
         do
         {
-            try FileManager.default.copyItem(at: originalUrl, to: destinationURL)
+            try FileManager.default.copyItem(at: originalPath, to: destinationURL)
         }
         catch
         {
@@ -531,8 +606,8 @@ extension AppDelegate
     {
         var urls: [URL] = []
         
-        if originalFileExists() { urls.append(originalUrl) }
-        if currentFileExistsInCorrectDirectory() { urls.append(currentUrl) }
+        if originalFileExists() { urls.append(self.originalUrl!) }
+        if currentFileExistsInCorrectDirectory() { urls.append(self.currentUrl!) }
         
         refreshImage()
         
@@ -541,9 +616,19 @@ extension AppDelegate
     
     func backgroundify(_ file: URL) -> Bool
     {
+        guard let bgifyUrl = AppDelegate.urlForKey(.backgroundifierPath) else
+        {
+            return false
+        }
+        
+        guard let outputUrl = AppDelegate.urlForKey(.outputPath) else
+        {
+            return false
+        }
+        
         if !bgifyExists()
         {
-            print("ERROR: Backgroundifier executable not found at \(bgifyURL.path)")
+            print("ERROR: Backgroundifier executable not found at \(bgifyUrl.path)")
             return false
         }
 
@@ -553,11 +638,11 @@ extension AppDelegate
             return false
         }
         
-        let out = URL.init(fileURLWithPath: "/Users/archagon/Pictures/Backgroundifier/Curated Art/Archive/monitor/encode/\((file.lastPathComponent as NSString).deletingPathExtension)")
+        let out = outputUrl.appendingPathComponent(file.lastPathComponent)
         
         // TODO: figure out how to expand sandbox to include output folder
         let task = Process()
-        task.launchPath = bgifyURL.path
+        task.launchPath = bgifyUrl.path
         task.arguments = ["-i", file.path, "-o", out.path, "-w", "2560", "-h", "1600"]
         task.launch()
         task.waitUntilExit()
@@ -714,5 +799,100 @@ extension AppDelegate
             
             return (name, path, false)
         }
+    }
+}
+
+/////////////////////
+// MARK: - Defaults -
+/////////////////////
+
+extension AppDelegate
+{
+    static func archiveAllowed() -> Bool
+    {
+        if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.archivePath.rawValue)
+        {
+            if let url2 = urlForKey(.outputPath), url == url2
+            {
+                return false
+            }
+            if let url2 = urlForKey(.sourcePath), url == url2
+            {
+                return false
+            }
+            
+            return true
+        }
+        
+        return false
+    }
+    
+    static func conversionAllowed() -> Bool
+    {
+        if
+            let sourceUrl = urlForKey(.sourcePath),
+            let outputUrl = urlForKey(.outputPath),
+            let _ = urlForKey(.backgroundifierPath),
+            sourceUrl != outputUrl
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    
+    static func urlForKey(_ key: Preferences.DefaultsKeys, rawValue: Bool = false) -> URL?
+    {
+        if rawValue
+        {
+            return UserDefaults.standard.url(forKey: key.rawValue)
+        }
+        
+        switch key
+        {
+        case .sourcePath:
+            if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.sourcePath.rawValue)
+            {
+                if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
+                {
+                    return url
+                }
+            }
+        case .outputPath:
+            if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.outputPath.rawValue)
+            {
+                if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
+                {
+                    return url
+                }
+            }
+        case .archivePath:
+            if let url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.archivePath.rawValue)
+            {
+                if url.hasDirectoryPath && FileManager.default.fileExists(atPath: url.path)
+                {
+                    return url
+                }
+            }
+        case .backgroundifierPath:
+            if var url = UserDefaults.standard.url(forKey: Preferences.DefaultsKeys.backgroundifierPath.rawValue)
+            {
+                if url.hasDirectoryPath
+                {
+                    url = url.appendingPathComponent("Contents").appendingPathComponent("MacOS").appendingPathComponent("Backgroundifier")
+                }
+                
+                if FileManager.default.fileExists(atPath: url.path) && FileManager.default.isExecutableFile(atPath: url.path)
+                {
+                    return url
+                }
+            }
+        default:
+            return nil
+        }
+        
+        return nil
     }
 }

@@ -58,15 +58,16 @@ class Preferences: NSWindowController
             
             aboutTextStyling: do
             {
-                var aboutText1 = "%@ is copyright © 2018 Alexei Baboulevitch. For use in concert with Backgroundifier, which you can read about at "
+                var aboutText1 = "%@ is copyright © 2018 Alexei Baboulevitch. For use in concert with Backgroundifier, which you can read all about at "
                 let aboutText2 = ". Enjoy! 😊"
                 let aboutTextName = "\(Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
                 let aboutTextUrl = "http://backgroundifier.archagon.net"
+                let displayAboutTextUrl = "http://\u{2060}backgroundifier.archagon.net" //disable wrapping
                 aboutText1 = String.init(format: aboutText1, aboutTextName)
                 
                 let font = NSFont.systemFont(ofSize: 12)
                 
-                let aboutAttributedTextUrl = NSMutableAttributedString.init(string: aboutTextUrl)
+                let aboutAttributedTextUrl = NSMutableAttributedString.init(string: displayAboutTextUrl)
                 let aboutAttributedTextUrlRange = NSMakeRange(0, aboutAttributedTextUrl.length)
                 aboutAttributedTextUrl.beginEditing()
                 aboutAttributedTextUrl.addAttributes([NSAttributedStringKey.link:URL.init(string: aboutTextUrl)!], range: aboutAttributedTextUrlRange)
@@ -300,7 +301,6 @@ extension Preferences
 
 extension Preferences: NSPathControlDelegate
 {
-    // TODO: ensure that paths are not the same
     func pathControl(_ pathControl: NSPathControl, willDisplay openPanel: NSOpenPanel)
     {
         if pathControl == self.sourcePath

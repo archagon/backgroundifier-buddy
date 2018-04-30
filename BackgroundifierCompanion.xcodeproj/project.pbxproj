@@ -22,7 +22,7 @@
 		4E412417208EBE3F00003041 /* FileChangeMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileChangeMonitor.swift; sourceTree = "<group>"; };
 		4E412419208ED96600003041 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E41241B208ED98300003041 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
-		4EF060D4208BF5490024924D /* BackgroundifierCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackgroundifierCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EF060D4208BF5490024924D /* BackgroundifierBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackgroundifierBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF060D7208BF5490024924D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EF060D9208BF54B0024924D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EF060DC208BF54B0024924D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		4EF060D5208BF5490024924D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4EF060D4208BF5490024924D /* BackgroundifierCompanion.app */,
+				4EF060D4208BF5490024924D /* BackgroundifierBuddy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,9 +83,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4EF060D3208BF5490024924D /* BackgroundifierCompanion */ = {
+		4EF060D3208BF5490024924D /* BackgroundifierBuddy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EF060E2208BF54B0024924D /* Build configuration list for PBXNativeTarget "BackgroundifierCompanion" */;
+			buildConfigurationList = 4EF060E2208BF54B0024924D /* Build configuration list for PBXNativeTarget "BackgroundifierBuddy" */;
 			buildPhases = (
 				4EF060D0208BF5490024924D /* Sources */,
 				4EF060D1208BF5490024924D /* Frameworks */,
@@ -95,9 +95,9 @@
 			);
 			dependencies = (
 			);
-			name = BackgroundifierCompanion;
+			name = BackgroundifierBuddy;
 			productName = BackgroundifierCompanion;
-			productReference = 4EF060D4208BF5490024924D /* BackgroundifierCompanion.app */;
+			productReference = 4EF060D4208BF5490024924D /* BackgroundifierBuddy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -134,7 +134,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4EF060D3208BF5490024924D /* BackgroundifierCompanion */,
+				4EF060D3208BF5490024924D /* BackgroundifierBuddy */,
 			);
 		};
 /* End PBXProject section */
@@ -344,7 +344,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4EF060E2208BF54B0024924D /* Build configuration list for PBXNativeTarget "BackgroundifierCompanion" */ = {
+		4EF060E2208BF54B0024924D /* Build configuration list for PBXNativeTarget "BackgroundifierBuddy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4EF060E3208BF54B0024924D /* Debug */,

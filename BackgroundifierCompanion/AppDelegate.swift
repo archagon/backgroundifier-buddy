@@ -37,6 +37,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         case archiveKeep
         case delete
         case separator3
+        case dock
+        case desktop
+        case separator4
         case prefs
         case quit
     }
@@ -123,6 +126,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             menu.addItem(sep3)
             assert(menu.items.count - 1 == MenuItem.separator3.rawValue)
             
+            let dockItem = NSMenuItem.init(title: "Refresh Wallpaper Cache", action: #selector(clickedDock), keyEquivalent: "")
+            dockItem.toolTip = "Restarts the Dock. It seems that new wallpapers won't appear in rotation until this is done."
+            menu.addItem(dockItem)
+            assert(menu.items.count - 1 == MenuItem.dock.rawValue)
+            
+            let desktopItem = NSMenuItem.init(title: "Toggle Desktop Icons", action: #selector(clickedDesktop), keyEquivalent: "")
+            desktopItem.toolTip = "Shows/hides the Desktop icons for better wallpaper visibility. Restarts the Finder in the process. Takes a few seconds to execute."
+            menu.addItem(desktopItem)
+            assert(menu.items.count - 1 == MenuItem.desktop.rawValue)
+            
+            let sep4 = NSMenuItem.separator()
+            menu.addItem(sep4)
+            assert(menu.items.count - 1 == MenuItem.separator4.rawValue)
+            
             let prefsItem = NSMenuItem.init(title: "Preferences…", action: #selector(clickedPreferences), keyEquivalent: "")
             menu.addItem(prefsItem)
             assert(menu.items.count - 1 == MenuItem.prefs.rawValue)
@@ -137,7 +154,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         if let button = statusItem.button
         {
             button.action = #selector(statusBarClicked)
-            button.sendAction(on: [.leftMouseDown, .rightMouseUp, .otherMouseUp])
+            button.sendAction(on: [.leftMouseDown, .rightMouseDown])
 
             let trackingArea = NSTrackingArea.init(rect: button.bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
             button.addTrackingArea(trackingArea)
@@ -381,7 +398,7 @@ extension AppDelegate
     {
         let event = NSApp.currentEvent!
         
-        if event.type == NSEvent.EventType.rightMouseUp
+        if event.type == NSEvent.EventType.rightMouseDown
         {
             //if event.mouseDo.contains(.option)
             //{
@@ -494,6 +511,16 @@ extension AppDelegate
     @objc func clickedDelete(_ item: NSMenuItem)
     {
         delete()
+    }
+    
+    @objc func clickedDock(_ item: NSMenuItem)
+    {
+        redock()
+    }
+    
+    @objc func clickedDesktop(_ item: NSMenuItem)
+    {
+        toggleDesktopIcons()
     }
     
     @objc func clickedPreferences(_ item: NSMenuItem)
@@ -638,7 +665,7 @@ extension AppDelegate
             return false
         }
         
-        let out = outputUrl.appendingPathComponent(file.lastPathComponent)
+        let out = outputUrl.appendingPathComponent(file.lastPathComponent).deletingPathExtension().appendingPathExtension("jpg")
         
         // TODO: figure out how to expand sandbox to include output folder
         let task = Process()
@@ -691,6 +718,32 @@ extension AppDelegate
             task.arguments = ["1"]
             task.launch()
         }
+    }
+    
+    func redock()
+    {
+        let task = Process()
+        task.launchPath = "/usr/bin/env"
+        task.arguments = ["killall", "Dock"]
+        task.launch()
+    }
+    
+    func toggleDesktopIcons()
+    {
+        guard let defaults = UserDefaults.init(suiteName: "com.apple.finder") else
+        {
+            print("ERROR: could not load Finder defaults")
+            return
+        }
+        
+        let createDesktop = defaults.bool(forKey: "CreateDesktop")
+        print("Create desktop: \(createDesktop)")
+        defaults.set(!createDesktop, forKey: "CreateDesktop")
+        
+        let task = Process()
+        task.launchPath = "/usr/bin/env"
+        task.arguments = ["killall", "Finder"]
+        task.launch()
     }
 }
 

@@ -88,6 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             
             let openItem = NSMenuItem.init(title: "🔍 Reveal Image", action: #selector(clickedOpen), keyEquivalent: "r")
             //openItem.indentationLevel = 1
+            openItem.toolTip = "Shows the source image in the Finder."
             menu.addItem(openItem)
             assert(menu.items.count - 1 == MenuItem.open.rawValue)
             
@@ -95,17 +96,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             openRealItem.keyEquivalentModifierMask = [NSEvent.ModifierFlags.option]
             openRealItem.isAlternate = true
             //openRealItem.indentationLevel = 1
+            openRealItem.toolTip = "Shows the wallpaper image in the Finder."
             menu.addItem(openRealItem)
             assert(menu.items.count - 1 == MenuItem.openReal.rawValue)
             
             let favoriteItem = NSMenuItem.init(title: "⭐️ Favorite Image", action: #selector(clickedFavorite), keyEquivalent: "f")
             //openRealItem.indentationLevel = 1
+            favoriteItem.toolTip = "Adds a tag to the source image to mark it as a favorite."
             menu.addItem(favoriteItem)
             assert(menu.items.count - 1 == MenuItem.favorite.rawValue)
             
             //🗄
             let archiveItem = NSMenuItem.init(title: "🗂 Archive Image", action: #selector(clickedArchive), keyEquivalent: "a")
             //archiveItem.indentationLevel = 1
+            archiveItem.toolTip = "Deletes the wallpaper image and moves the source image to the Archive directory."
             menu.addItem(archiveItem)
             assert(menu.items.count - 1 == MenuItem.archive.rawValue)
             
@@ -113,12 +117,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             archiveKeepItem.keyEquivalentModifierMask = [NSEvent.ModifierFlags.option]
             archiveKeepItem.isAlternate = true
             //archiveKeepItem.indentationLevel = 1
+            archiveKeepItem.toolTip = "Copies the source image to the Archive directory."
             menu.addItem(archiveKeepItem)
             assert(menu.items.count - 1 == MenuItem.archiveKeep.rawValue)
             
             //🚫⛔️
             let deleteItem = NSMenuItem.init(title: "🗑 Delete Image", action: #selector(clickedDelete), keyEquivalent: "d")
             //deleteItem.indentationLevel = 1
+            deleteItem.toolTip = "Moves the wallpaper and source images to the Trash."
             menu.addItem(deleteItem)
             assert(menu.items.count - 1 == MenuItem.delete.rawValue)
             
@@ -127,7 +133,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             assert(menu.items.count - 1 == MenuItem.separator3.rawValue)
             
             let dockItem = NSMenuItem.init(title: "Refresh Wallpaper Cache", action: #selector(clickedDock), keyEquivalent: "")
-            dockItem.toolTip = "Restarts the Dock. It seems that new wallpapers won't appear in rotation until this is done."
+            dockItem.toolTip = "Restarts the Dock. It seems that new wallpapers sometimes won't appear in rotation until this is done."
             menu.addItem(dockItem)
             assert(menu.items.count - 1 == MenuItem.dock.rawValue)
             
@@ -727,6 +733,28 @@ extension AppDelegate
         task.arguments = ["killall", "Dock"]
         task.launch()
     }
+    
+    //var images: [String:Int] = [:]
+    //func wallpaperTest()
+    //{
+    //        for _ in 0..<600
+    //        {
+    //            refreshImage()
+    //            usleep(1000000 / 3)
+    //            let img = wallpaper(forSpace: currentSpace(), display: currentDisplay())
+    //            images[img.name] = (images[img.name] ?? 0) + 1
+    //            //print("\(img.name)")
+    //        }
+    //
+    //        print("Total images: \(images.keys.count)")
+    //        print("---")
+    //        let alphaImages = images.keys.sorted()
+    //        for img in alphaImages
+    //        {
+    //            print(img)
+    //        }
+    //        print("---")
+    //}
     
     func toggleDesktopIcons()
     {

@@ -29,8 +29,6 @@
 		4EF060DE208BF54B0024924D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EF060DF208BF54B0024924D /* BackgroundifierCompanion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BackgroundifierCompanion.entitlements; sourceTree = "<group>"; };
 		4EF060E5208BFCF10024924D /* BackgroundifierCompanion-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BackgroundifierCompanion-Bridging-Header.h"; sourceTree = "<group>"; };
-		4EF060E6208BFCF20024924D /* RetrieveBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RetrieveBackground.h; sourceTree = "<group>"; };
-		4EF060E7208BFCF20024924D /* RetrieveBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RetrieveBackground.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +65,6 @@
 				4E412419208ED96600003041 /* Preferences.swift */,
 				4E412417208EBE3F00003041 /* FileChangeMonitor.swift */,
 				4E412415208EB8AA00003041 /* DirectoryMonitor.swift */,
-				4EF060E6208BFCF20024924D /* RetrieveBackground.h */,
-				4EF060E7208BFCF20024924D /* RetrieveBackground.m */,
 				4EF060E5208BFCF10024924D /* BackgroundifierCompanion-Bridging-Header.h */,
 				4E412414208D381900003041 /* ApplePrivate.h */,
 				4EF060D9208BF54B0024924D /* Assets.xcassets */,

@@ -7,7 +7,7 @@
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="Preferences" customModule="BackgroundifierCompanion" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="Preferences" customModule="BackgroundifierBuddy" customModuleProvider="target">
             <connections>
                 <outlet property="aboutText" destination="kzt-cb-9Tf" id="UnF-bN-Nlk"/>
                 <outlet property="archiveClear" destination="NB1-Fc-eMM" id="NaA-1X-Qsy"/>
@@ -43,16 +43,16 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3f-Ms-JTR">
-                        <rect key="frame" x="20" y="20" width="479" height="561"/>
+                        <rect key="frame" x="20" y="20" width="434" height="561"/>
                         <subviews>
                             <box title="Automatic Conversion" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="msA-6D-9ku">
-                                <rect key="frame" x="-3" y="481" width="485" height="82"/>
+                                <rect key="frame" x="-3" y="481" width="440" height="82"/>
                                 <view key="contentView" id="13D-hx-7wx">
-                                    <rect key="frame" x="2" y="2" width="481" height="78"/>
+                                    <rect key="frame" x="2" y="2" width="436" height="78"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6D-6f-zUj">
-                                            <rect key="frame" x="8" y="8" width="465" height="62"/>
+                                            <rect key="frame" x="8" y="8" width="420" height="62"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UJO-96-Ff7">
                                                     <rect key="frame" x="-2" y="46" width="296" height="18"/>
@@ -65,10 +65,10 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uqQ-GT-HmB">
-                                                    <rect key="frame" x="-2" y="0.0" width="459" height="42"/>
+                                                    <rect key="frame" x="-2" y="0.0" width="420" height="42"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="eYU-DW-oN2">
                                                         <font key="font" metaFont="smallSystem"/>
-                                                        <string key="title">Automatically use Backgroundifier to convert images in the Source directory to the Output directory. Only works while the Companion app is runnning. Does not currently track edits or unconverted images, only new additions.</string>
+                                                        <string key="title">Automatically use Backgroundifier to convert images in the Source directory to the Output directory. Only works while Buddy is runnning. Does not currently track edits or unconverted images, only new additions.</string>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -93,19 +93,19 @@
                                 </view>
                             </box>
                             <box ambiguous="YES" title="Source Image Directory" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Hwq-ek-v1l">
-                                <rect key="frame" x="-3" y="380" width="485" height="91"/>
+                                <rect key="frame" x="-3" y="380" width="440" height="91"/>
                                 <view key="contentView" ambiguous="YES" id="AdL-SG-WE4">
-                                    <rect key="frame" x="2" y="2" width="481" height="87"/>
+                                    <rect key="frame" x="2" y="2" width="436" height="87"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yzG-k3-M5M">
-                                            <rect key="frame" x="8" y="8" width="465" height="71"/>
+                                            <rect key="frame" x="8" y="8" width="420" height="71"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hqx-B8-uJz">
-                                                    <rect key="frame" x="0.0" y="48" width="465" height="23"/>
+                                                    <rect key="frame" x="0.0" y="48" width="420" height="23"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" ambiguous="YES" tag="1" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMm-hK-n0R">
-                                                            <rect key="frame" x="-3" y="-1" width="341" height="26"/>
+                                                            <rect key="frame" x="-3" y="-1" width="296" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose source image directory..." pathStyle="popUp" id="B9R-PN-HUa">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -115,7 +115,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSb-uC-OjC">
-                                                            <rect key="frame" x="343" y="0.0" width="122" height="21"/>
+                                                            <rect key="frame" x="298" y="1" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="11" translatesAutoresizingMaskIntoConstraints="NO" id="zp9-rS-Zbk">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -161,7 +161,7 @@
                                                     </customSpacing>
                                                 </stackView>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nvW-tD-kxl">
-                                                    <rect key="frame" x="-2" y="0.0" width="469" height="42"/>
+                                                    <rect key="frame" x="-2" y="0.0" width="413" height="42"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="QI0-zc-5bA">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <string key="title">The directory containing all your original images. Needs to be a subdirectory inside your ~/Pictures directory for automatic conversion to work, if using the sandboxed Backgroundifier.app.</string>
@@ -189,19 +189,19 @@
                                 </view>
                             </box>
                             <box ambiguous="YES" title="Output Image Directory" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-l4-kUJ">
-                                <rect key="frame" x="-3" y="264" width="485" height="106"/>
+                                <rect key="frame" x="-3" y="264" width="440" height="106"/>
                                 <view key="contentView" ambiguous="YES" id="mVs-mU-iEF">
-                                    <rect key="frame" x="2" y="2" width="481" height="102"/>
+                                    <rect key="frame" x="2" y="2" width="436" height="102"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byd-Nf-ZAB">
-                                            <rect key="frame" x="8" y="8" width="465" height="86"/>
+                                            <rect key="frame" x="8" y="8" width="420" height="86"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KgN-Pt-dri">
-                                                    <rect key="frame" x="0.0" y="50" width="465" height="36"/>
+                                                    <rect key="frame" x="0.0" y="50" width="420" height="36"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" ambiguous="YES" tag="2" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LCj-PJ-HhT">
-                                                            <rect key="frame" x="-3" y="6" width="341" height="26"/>
+                                                            <rect key="frame" x="-3" y="4" width="296" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose output image directory..." pathStyle="popUp" id="Vwq-Nf-kVf">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -211,7 +211,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-QH-Nzk">
-                                                            <rect key="frame" x="343" y="8" width="122" height="21"/>
+                                                            <rect key="frame" x="298" y="6" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="12" translatesAutoresizingMaskIntoConstraints="NO" id="cla-Q3-wK5">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -257,7 +257,7 @@
                                                     </customSpacing>
                                                 </stackView>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-cn-gkI">
-                                                    <rect key="frame" x="-2" y="0.0" width="464" height="42"/>
+                                                    <rect key="frame" x="-2" y="0.0" width="416" height="42"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="Ne3-UT-6df">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <string key="title">The directory containing your Backgroundifier-processed images, presumably selected as the directory for your wallpaper cycle. Same sandboxing restrictions as for the Source directory.</string>
@@ -285,19 +285,19 @@
                                 </view>
                             </box>
                             <box ambiguous="YES" title="Image Archive Directory" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ow3-79-0kp">
-                                <rect key="frame" x="-3" y="177" width="485" height="77"/>
+                                <rect key="frame" x="-3" y="177" width="440" height="77"/>
                                 <view key="contentView" ambiguous="YES" id="vLZ-JG-Ga7">
-                                    <rect key="frame" x="2" y="2" width="481" height="73"/>
+                                    <rect key="frame" x="2" y="2" width="436" height="73"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ndc-3H-ZU6">
-                                            <rect key="frame" x="8" y="8" width="465" height="57"/>
+                                            <rect key="frame" x="8" y="8" width="420" height="57"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xra-BO-gkq">
-                                                    <rect key="frame" x="0.0" y="34" width="465" height="23"/>
+                                                    <rect key="frame" x="0.0" y="34" width="420" height="23"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" ambiguous="YES" tag="3" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9i-cy-Run">
-                                                            <rect key="frame" x="-3" y="-1" width="341" height="26"/>
+                                                            <rect key="frame" x="-3" y="-1" width="296" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose image archive directory..." pathStyle="popUp" id="lvE-0w-cbc">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -307,7 +307,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-BH-c50">
-                                                            <rect key="frame" x="343" y="1" width="122" height="21"/>
+                                                            <rect key="frame" x="298" y="0.0" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="NB1-Fc-eMM">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -353,7 +353,7 @@
                                                     </customSpacing>
                                                 </stackView>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="85z-VV-Lnb">
-                                                    <rect key="frame" x="-2" y="0.0" width="427" height="28"/>
+                                                    <rect key="frame" x="-2" y="0.0" width="424" height="28"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="The directory into which all your archived images will be moved. Only required if archiving is going to be used." id="ISV-fg-jTI">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -380,19 +380,19 @@
                                 </view>
                             </box>
                             <box ambiguous="YES" title="Backgroundifier Path" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-xm-eom">
-                                <rect key="frame" x="-3" y="77" width="485" height="90"/>
+                                <rect key="frame" x="-3" y="77" width="440" height="90"/>
                                 <view key="contentView" ambiguous="YES" id="r6J-fI-B0S">
-                                    <rect key="frame" x="2" y="2" width="481" height="86"/>
+                                    <rect key="frame" x="2" y="2" width="436" height="86"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mbG-pk-exQ">
-                                            <rect key="frame" x="8" y="8" width="465" height="70"/>
+                                            <rect key="frame" x="8" y="8" width="420" height="70"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0tx-Hy-1GO">
-                                                    <rect key="frame" x="0.0" y="34" width="465" height="36"/>
+                                                    <rect key="frame" x="0.0" y="34" width="420" height="36"/>
                                                     <subviews>
                                                         <pathControl horizontalHuggingPriority="200" verticalHuggingPriority="750" ambiguous="YES" tag="4" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3h-TV-il7">
-                                                            <rect key="frame" x="-3" y="6" width="341" height="26"/>
+                                                            <rect key="frame" x="-3" y="6" width="296" height="26"/>
                                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" placeholderString="Choose Backgroundifier executable path..." pathStyle="popUp" id="Snk-64-JaP">
                                                                 <font key="font" metaFont="system"/>
                                                             </pathCell>
@@ -402,7 +402,7 @@
                                                             </connections>
                                                         </pathControl>
                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LOo-vb-owz">
-                                                            <rect key="frame" x="343" y="8" width="122" height="21"/>
+                                                            <rect key="frame" x="298" y="8" width="122" height="21"/>
                                                             <subviews>
                                                                 <button verticalHuggingPriority="750" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ked-RS-3Gu">
                                                                     <rect key="frame" x="-6" y="-7" width="72" height="32"/>
@@ -448,7 +448,7 @@
                                                     </customSpacing>
                                                 </stackView>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="A0R-yZ-pYb">
-                                                    <rect key="frame" x="-2" y="0.0" width="460" height="28"/>
+                                                    <rect key="frame" x="-2" y="0.0" width="413" height="28"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="The location of either Backgroundifier.app or the Backgroundifier binary. Only required to enable automatic image conversion." id="JUM-cA-eBh">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -475,10 +475,10 @@
                                 </view>
                             </box>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="OBC-4n-6Ah">
-                                <rect key="frame" x="24" y="62" width="432" height="5"/>
+                                <rect key="frame" x="0.0" y="62" width="434" height="5"/>
                             </box>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kzt-cb-9Tf">
-                                <rect key="frame" x="3" y="0.0" width="473" height="48"/>
+                                <rect key="frame" x="-1" y="0.0" width="437" height="48"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="odD-am-7Yt">
                                     <font key="font" metaFont="cellTitle"/>
                                     <string key="title">BackgroundifierCompanion 0.5 is made by Alexei Baboulevitch, for use in concert with Backgroundifier processed images. You can read more about it at %url. Enjoy! 😊</string>

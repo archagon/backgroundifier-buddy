@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
     var data: (name: String, folder: String, cycling: Bool)!
     
     var currentUrl: URL? { return URL.init(fileURLWithPath: (data.folder as NSString).appendingPathComponent(data.name)) }
-    var originalUrl: URL? { return AppDelegate.urlForKey(.sourcePath)?.appendingPathComponent(data.name) }
+    var originalUrl: URL? { return AppDelegate.urlForKey(.sourcePath)?.appendingPathComponent(data.name).deletingPathExtension() }
     
     let conn = _CGSDefaultConnection()
     var monitor: FileChangeMonitor?
@@ -671,7 +671,7 @@ extension AppDelegate
             return false
         }
         
-        let out = outputUrl.appendingPathComponent(file.lastPathComponent).deletingPathExtension().appendingPathExtension("jpg")
+        let out = outputUrl.appendingPathComponent(file.lastPathComponent).appendingPathExtension("jpg")
         
         // TODO: figure out how to expand sandbox to include output folder
         let task = Process()

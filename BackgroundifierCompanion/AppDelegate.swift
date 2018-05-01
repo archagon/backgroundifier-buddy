@@ -40,6 +40,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         case dock
         case desktop
         case separator4
+        #if DEBUG
+        case debugWallpaper
+        case separator5
+        #endif
         case prefs
         case quit
     }
@@ -146,6 +150,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             menu.addItem(sep4)
             assert(menu.items.count - 1 == MenuItem.separator4.rawValue)
             
+            #if DEBUG
+            let debugWallpaperItem = NSMenuItem.init(title: "Debug Wallpaper", action: #selector(wallpaperTest), keyEquivalent: "")
+            menu.addItem(debugWallpaperItem)
+            assert(menu.items.count - 1 == MenuItem.debugWallpaper.rawValue)
+            
+            let sep5 = NSMenuItem.separator()
+            menu.addItem(sep5)
+            assert(menu.items.count - 1 == MenuItem.separator5.rawValue)
+            #endif
+            
             let prefsItem = NSMenuItem.init(title: "Preferences…", action: #selector(clickedPreferences), keyEquivalent: "")
             menu.addItem(prefsItem)
             assert(menu.items.count - 1 == MenuItem.prefs.rawValue)
@@ -238,6 +252,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         self.menu.item(at: MenuItem.prefs.rawValue)?.isEnabled = true
         self.menu.item(at: MenuItem.quit.rawValue)?.isEnabled = true
     }
+    
+    #if DEBUG
+    var _wallpaperTestImages: [String:Int] = [:]
+    @objc func wallpaperTest()
+    {
+        for _ in 0..<600
+        {
+            refreshImage()
+            usleep(1000000 / 3)
+            let img = wallpaper(forSpace: currentSpace(), display: currentDisplay())
+            _wallpaperTestImages[img.name] = (_wallpaperTestImages[img.name] ?? 0) + 1
+            //print("\(img.name)")
+        }
+        
+        print("Total images: \(_wallpaperTestImages.keys.count)")
+        print("---")
+        let alphaImages = _wallpaperTestImages.keys.sorted()
+        for img in alphaImages
+        {
+            print(img)
+        }
+        print("---")
+    }
+    #endif
     
 /////////////////////////////////
 // MARK: - Directory Monitoring -
@@ -733,28 +771,6 @@ extension AppDelegate
         task.arguments = ["killall", "Dock"]
         task.launch()
     }
-    
-    //var images: [String:Int] = [:]
-    //func wallpaperTest()
-    //{
-    //        for _ in 0..<600
-    //        {
-    //            refreshImage()
-    //            usleep(1000000 / 3)
-    //            let img = wallpaper(forSpace: currentSpace(), display: currentDisplay())
-    //            images[img.name] = (images[img.name] ?? 0) + 1
-    //            //print("\(img.name)")
-    //        }
-    //
-    //        print("Total images: \(images.keys.count)")
-    //        print("---")
-    //        let alphaImages = images.keys.sorted()
-    //        for img in alphaImages
-    //        {
-    //            print(img)
-    //        }
-    //        print("---")
-    //}
     
     func toggleDesktopIcons()
     {

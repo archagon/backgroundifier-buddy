@@ -799,19 +799,45 @@ extension AppDelegate
 {
     func displayInfo() -> NSDictionary
     {
-        guard let info = CGSCopyManagedDisplaySpaces(conn) as? NSArray else
+        guard let info = CGSCopyManagedDisplaySpaces(conn) as? [NSDictionary] else
         {
             assert(false, "could not retrieve info from connection")
             return NSDictionary()
         }
         
-        guard let displayInfo = info.firstObject as? NSDictionary else
+        // https://github.com/koekeishiya/kwm/blob/master/axlib/display.mm
+        guard
+            let displayId = NSScreen.main?.deviceDescription[NSDeviceDescriptionKey.init("NSScreenNumber")] as? UInt32,
+            let displayUuid = CGDisplayCreateUUIDFromDisplayID(displayId),
+            let displayString = CFUUIDCreateString(nil, displayUuid.takeUnretainedValue())
+            else
         {
-            assert(false, "could not retrieve display info from connection info")
+            assert(false, "could not retrieve current display ID")
             return NSDictionary()
         }
         
-        return displayInfo
+        var displayI: Int? = nil
+        for (i,dict) in info.enumerated()
+        {
+            guard let displayId = dict["Display Identifier"] as? String else
+            {
+                continue
+            }
+            
+            if displayId == displayString as String
+            {
+                displayI = i
+                break
+            }
+        }
+        
+        guard let i = displayI else
+        {
+            assert(false, "could not find current display in display info array")
+            return NSDictionary()
+        }
+        
+        return info[i]
     }
     
     func currentSpace() -> String

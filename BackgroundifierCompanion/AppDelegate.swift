@@ -186,6 +186,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         //    self.refreshMenu()
         //}
         
+        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: nil, queue: nil)
+        { [weak self] n in
+            if n.object as? NSWindow == self?.preferences?.window
+            {
+                self?.preferences = nil
+            }
+        }
+        
         NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: nil)
         { [weak self] n in
             self?.refreshMenu()
@@ -799,7 +807,7 @@ extension AppDelegate
 {
     func displayInfo() -> NSDictionary
     {
-        guard let info = CGSCopyManagedDisplaySpaces(conn) as? [NSDictionary] else
+        guard let info = CGSCopyManagedDisplaySpaces(conn).takeRetainedValue() as? [NSDictionary] else
         {
             assert(false, "could not retrieve info from connection")
             return NSDictionary()
@@ -807,9 +815,9 @@ extension AppDelegate
         
         // https://github.com/koekeishiya/kwm/blob/master/axlib/display.mm
         guard
-            let displayId = NSScreen.main?.deviceDescription[NSDeviceDescriptionKey.init("NSScreenNumber")] as? UInt32,
+            let displayId = NSScreen.main?.deviceDescription[NSDeviceDescriptionKey.init("NSScreenNumber")] as? UInt32, //possibly equal to "_screenNumber" private var
             let displayUuid = CGDisplayCreateUUIDFromDisplayID(displayId),
-            let displayString = CFUUIDCreateString(nil, displayUuid.takeUnretainedValue())
+            let displayString = CFUUIDCreateString(nil, displayUuid.takeRetainedValue())
             else
         {
             assert(false, "could not retrieve current display ID")
@@ -881,12 +889,8 @@ extension AppDelegate
             assert(false, "could not retrieve picture info")
             return ("", "", false)
         }
-        defer
-        {
-            picture.release()
-        }
         
-        let pictureDict = picture.takeUnretainedValue() as NSDictionary
+        let pictureDict = picture.takeRetainedValue() as NSDictionary
         
         let cycle = pictureDict["Change"] != nil
         //let random = pictureDict["Random"] as? Bool ?? false

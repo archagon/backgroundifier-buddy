@@ -209,8 +209,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
         print("Image: \(data!)")
         #endif
         
-        let buffer = 15
-        var truncatedString = data.name
+        let buffer = 20
+        var truncatedString = ((data.name as NSString).deletingPathExtension as NSString).deletingPathExtension
         if truncatedString.count > buffer * 2 + 1
         {
             truncatedString =
@@ -241,11 +241,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate
             if !currentFileExistsInCorrectDirectory()
             {
                 self.menu.item(at: MenuItem.open.rawValue)?.isEnabled = false
-                self.menu.item(at: MenuItem.openReal.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.favorite.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.archive.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.archiveKeep.rawValue)?.isEnabled = false
                 self.menu.item(at: MenuItem.delete.rawValue)?.isEnabled = false
+            }
+            if !currentFileExists()
+            {
+                self.menu.item(at: MenuItem.openReal.rawValue)?.isEnabled = false
             }
             
             if !originalFileExists()
@@ -364,6 +367,18 @@ extension AppDelegate: FileChangeMonitorDelegate
 
 extension AppDelegate
 {
+    func currentFileExists() -> Bool
+    {
+        let aUrl = currentUrl
+        
+        guard let url = aUrl else { return false }
+        
+        if !FileManager.default.fileExists(atPath: url.path) { return false }
+        if url.hasDirectoryPath { return false }
+        
+        return true
+    }
+    
     func currentFileExistsInCorrectDirectory() -> Bool
     {
         let aUrl = currentUrl
